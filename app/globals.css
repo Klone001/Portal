@@ -1,0 +1,147 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0, 0%, 99%;
+    --foreground: 222.2 84% 4.9%;
+
+    --primary: #0E3733;
+    --primary-foreground: #FFFFFF;
+
+    --input: #E1E4E4;
+    --input-focus: #90A3A1;
+  }
+
+  .dark {
+    --background: #0E3733;
+    --foreground: 0 0% 98%;
+
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+  }
+
+  .disabled {
+    @apply opacity-50 cursor-not-allowed
+  }
+
+}
+
+@layer base {
+
+  body {
+    @apply m-0 p-0 box-border overflow-x-hidden
+}
+
+.form-control {
+    @apply py-3.5 px-4 focus:outline-none focus:ring-0 block outline-none border border-input w-full rounded-full text-xs text-black focus:shadow-md focus:border-input-focus focus:border placeholder:text-xs
+}
+
+label {
+    @apply inline-block tracking-tight
+}
+
+.form-label {
+    @apply mb-[.5rem] text-xs font-medium
+}
+
+
+.PhoneInput input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  font-size: 13px !important;
+  background: none !important;
+}
+
+.PhoneInput select {
+  font-size: 13px !important;
+}
+
+.PhoneInput .PhoneInputCountrySelectArrow {
+  @apply mr-2 ml-3
+}
+
+.PhoneInput .PhoneInputCountryIconImg {
+  display: block;
+  width: 30px !important;
+  height: 22px !important;
+  max-width: 22px;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  margin-top: -4px;
+}
+
+.PhoneInput input[type='tel']:focus {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+
+.PhoneInput .PhoneInputCountryIcon {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.form-control.is-invalid,
+.was-validated .form-control:invalid {
+  @apply border-red-600
+}
+
+
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.go3958317564 {
+  font-size: 13px !important;
+  font-weight: light;
+  margin: 4px 8px !important;
+}
+
+/* SCROLL BAR */
+ 
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #dbdbdb;
+  border-radius: 4px;
+}
+
+/* Other browsers */
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+::-webkit-scrollbar-track-piece {
+  background-color: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #dbdbdb;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #dbdbdb;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+*::-webkit-scrollbar {
+  width: 5px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #dbdbdb;
+  border-radius: 4px;
+}

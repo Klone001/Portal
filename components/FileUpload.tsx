@@ -133,7 +133,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
                         <div className="flex items-center justify-center w-20 h-20 bg-neutral-50 rounded-xl border border-dashed border-spacing-10 border-[#d9d9d9]">
                             {files && !Array.isArray(files) ? (
                                 files.type.startsWith("image/") ? (
-                                    <img
+                                    <Image width={100} height={100}
                                         src={URL.createObjectURL(files)}
                                         alt="Uploaded Image"
                                         className="w-full h-full object-cover rounded-xl"
@@ -172,7 +172,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
                     
                     <div key={index} className="flex border rounded-lg p-1.5 border-gray-500 mt-3 w-full items-center relative">
                         {file && file.type.startsWith("image/") ? (
-                            <img src={URL.createObjectURL(file)}
+                            <Image src={URL.createObjectURL(file)} width={100} height={100}
                                 alt={`Image ${index}`}
                                 className="size-7 object-cover rounded" />
                         ) : file && file.type === "application/pdf" ? (

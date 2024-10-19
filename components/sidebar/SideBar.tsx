@@ -9,6 +9,8 @@ import SidebarLink from './SidebarLink';
 import { Button } from '../ui';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import { signOut } from 'next-auth/react';
+import { Image as NextImage } from "@nextui-org/react";
+
 
 interface SidebarProps {
     open: boolean;
@@ -166,7 +168,7 @@ const SideBar: React.FC<SidebarProps> = ({ open, setOpen }) => {
 
                                 <div className="flex items-center gap-x-2.5">
 
-                                    <Image width={100} height={100} alt="Profile" src="/images/profile.png" className='size-10 rounded-full object-cover' />
+                                <NextImage as={Image} width={100} height={100} alt="Profile" src="/images/profile.png" className='w-10 h-10 max-w-10 max-h-10 rounded-full object-cover' />
 
                                     <div className="-space-y-2">
                                         <h1 className="text-xs text-white font-medium">Tea Toye</h1>

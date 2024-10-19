@@ -1,10 +1,10 @@
-import Image from 'next/image'
 import React from 'react'
 import moment from 'moment'
-import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/react';
+import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Image } from '@nextui-org/react';
 import { Bars2Icon, ChevronDownIcon } from '@heroicons/react/24/solid';
 import { NotificationIcon } from '@/icons';
 import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/outline";
+import NextImage from "next/image";
 
 interface NavBarProps {
     setOpen: (open: boolean) => void;
@@ -25,8 +25,7 @@ const NavBar: React.FC<NavBarProps> = ({ setOpen }) => {
 
                         <div className="flex items-center gap-x-3">
 
-                            <Image width={100} height={100} alt="Profile" src="/images/profile.png"
-                                className='size-10 rounded-full object-cover' />
+                            <Image as={NextImage} width={100} height={100} alt="Profile" src="/images/profile.png" className='w-10 h-10 max-w-10 max-h-10 rounded-full object-cover' />
 
                             <div className="-space-y-1 pt-1">
                                 <h1 className="text-sm 2xl:text-base text-black font-semibold">Hey, Tea!</h1>

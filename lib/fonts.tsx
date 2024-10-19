@@ -3,27 +3,27 @@ import localFont from 'next/font/local'
 const EFCircular = localFont({
   src: [
     {
-      path: '../public/fonts/EFCIRCULAR-LIGHT.OTF',
+      path: '../public/fonts/EFCircular-Light.ttf',
       weight: '300',
       style: 'normal',
     },
     {
-      path: '../public/fonts/EFCIRCULAR-BOOK.OTF',
+      path: '../public/fonts/EFCircular-Book.ttf',
       weight: '400',
       style: 'normal',
     },
     {
-      path: '../public/fonts/EFCIRCULAR-MEDIUM.OTF',
+      path: '../public/fonts/EFCircular-Medium.ttf',
       weight: '500',
       style: 'normal',
     },
     {
-      path: '../public/fonts/EFCIRCULAR-BOLD.OTF',
+      path: '../public/fonts/EFCircular-Bold.ttf',
       weight: '700',
       style: 'normal',
     },
     {
-      path: '../public/fonts/EFCIRCULAR-BLACK.OTF',
+      path: '../public/fonts/EFCircular-Black.ttf',
       weight: '900',
       style: 'normal',
     },

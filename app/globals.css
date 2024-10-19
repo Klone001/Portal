@@ -6,6 +6,7 @@
   :root {
     --background: 0, 0%, 99%;
     --foreground: 222.2 84% 4.9%;
+    --font-efcircular: var(--font-efcircular);
 
     --primary: #0E3733;
     --primary-foreground: #FFFFFF;
@@ -28,6 +29,10 @@
 
 }
 
+body{
+  font-family: var(--font-efcircular), sans-serif;
+}
+
 @layer base {
 
   body {
@@ -45,7 +50,6 @@ label {
 .form-label {
     @apply mb-[.5rem] text-xs font-medium
 }
-
 
 .PhoneInput input {
   flex: 1;

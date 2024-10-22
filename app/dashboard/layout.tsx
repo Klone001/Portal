@@ -1,4 +1,4 @@
-import { ClientDashboardLayout } from '@/layout'
+import ClientDashboardLayout from '@/components/ClientDashboardLayout';
 import { authOptions } from '@/lib';
 import { getServerSession } from 'next-auth';
 import React, { ReactNode } from 'react'

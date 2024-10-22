@@ -3,11 +3,13 @@ import { TableHeader, TableHead, Table, TableBody, TableRow, TableCell } from ".
 import Checkbox from "../Checkbox";
 import { useCheckboxSelection } from "@/utils";
 import TableDropdown from "./TableDropdown";
-import { categories } from "@/data";
+// import { categories } from "@/data";
 import { Chip, Image } from "@nextui-org/react";
-import { CategoryType } from "@/types";
+import { ApiResponse, CategoryTypeWithId } from "@/types";
 import { DeleteModal, UpdateCategoryModal } from "../modals";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import { authFetch } from "@/lib/hooks";
 
 const getStatusStyles = (status: string) => {
     let textColor: string;
@@ -31,7 +33,7 @@ const getStatusStyles = (status: string) => {
     return { textColor, bgColor };
 };
 
-const CategoryTable: React.FC = () => {
+const CategoryTable = ({ categories, getCategories }: { categories: CategoryTypeWithId[], getCategories: () => void }) => {
 
     const router = useRouter()
 
@@ -58,12 +60,12 @@ const CategoryTable: React.FC = () => {
                 {
                     key: 'view',
                     label: 'View category',
-                    onClick: (category: CategoryType) => router.push(`category/${category.id}`),
+                    onClick: (category: CategoryTypeWithId) => router.push(`category/${category.id}`),
                 },
                 {
                     key: 'edit',
                     label: 'Edit category',
-                    onClick: (category: CategoryType) => {
+                    onClick: (category: CategoryTypeWithId) => {
                         setEditData(category);
                         setOpenEditModal(true);
                     },
@@ -79,7 +81,7 @@ const CategoryTable: React.FC = () => {
                     className: 'text-error-500',
                     color: 'danger',
                     description: 'Permanently delete the category',
-                    onClick: (category: CategoryType) => {
+                    onClick: (category: CategoryTypeWithId) => {
                         if (category.id !== undefined) {
                             setDeleteId(category.id);
                             setOpen(true)
@@ -92,7 +94,16 @@ const CategoryTable: React.FC = () => {
 
     const handleDelete = async () => {
         if (deleteId !== null) {
-            setDeleteId(null);
+            try {
+                const response = await authFetch<ApiResponse>(`/business-category/id?id=${deleteId}`, 'DELETE');
+                toast.success(response?.result.message || 'Category successfully deleted');
+                getCategories();
+            } catch (error: any) {
+                toast.error(error.errorMessage);
+            } finally {
+                setDeleteId(null);
+                setOpen(false); 
+            }
         }
     };
 
@@ -145,7 +156,7 @@ const CategoryTable: React.FC = () => {
                                     id={`category-${item.id}`}
                                     checked={selectedIds.includes(item.id)}
                                     onChange={() => handleCheckboxChange(item.id)}
-                                    label={`Select ${item.Name}`}
+                                    label={`Select ${item.name}`}
                                 />
                             </TableCell>
 
@@ -153,27 +164,27 @@ const CategoryTable: React.FC = () => {
 
                                 <div className="flex items-center gap-3 pr-6">
 
-                                    <Image alt={item.Name} width={50}
+                                    <Image alt={item.name} width={200}
                                         className="rounded-full object-cover w-9 h-9 max-w-10 max-h-10"
-                                        src={item.image} />
+                                        src={item.imageUrl} />
 
-                                    <p className="whitespace-nowrap"> {item.Name}</p>
+                                    <p className="whitespace-nowrap"> {item.name}</p>
 
                                 </div>
 
                             </TableCell>
 
                             <TableCell className="px-6">
-                                {item.vendors}
+                                {item.vendors || 0}
                             </TableCell>
 
                             <TableCell className="px-6">
-                                {item.services}
+                                {item.services || 0}
                             </TableCell>
 
                             <TableCell className="pl-6">
-                                <Chip className={`text-[12px] font-light ${getStatusStyles(item.status || 'inactive').bgColor} ${getStatusStyles(item.status || 'inactive').textColor}`}>
-                                    {item.status === 'active' ? 'Active' : 'Coming soon'}
+                                <Chip className={`text-[12px] font-light ${getStatusStyles(item.status || 'active').bgColor} ${getStatusStyles(item.status || 'active').textColor}`}>
+                                    {item.status != 'active' ? 'Active' : 'Coming soon'}
                                 </Chip>
                             </TableCell>
 
@@ -189,7 +200,7 @@ const CategoryTable: React.FC = () => {
 
             </Table>
 
-            <UpdateCategoryModal data={editData} open={openEditModal} setOpen={setOpenEditModal} />
+            <UpdateCategoryModal getCategories={getCategories} data={editData} open={openEditModal} setOpen={setOpenEditModal} />
 
             <DeleteModal onDelete={handleDelete} title="category" open={open} setOpen={setOpen} />
 

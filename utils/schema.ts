@@ -8,7 +8,7 @@ export const LoginSchema = Yup.object({
 });
 
 export const addCategorySchema = Yup.object({
-  Name: Yup.string()
+  name: Yup.string()
     .required('Category name is required.')
     .min(2, 'Category name must be at least 2 characters long.') 
     .max(50, 'Category name cannot exceed 50 characters.'),
@@ -23,7 +23,7 @@ export const addCategorySchema = Yup.object({
 });
 
 export const updateCategorySchema = Yup.object({
-  Name: Yup.string()
+  name: Yup.string()
       .required('Category name is required.')
       .min(2, 'Category name must be at least 2 characters long.') 
       .max(50, 'Category name cannot exceed 50 characters.'),
@@ -37,7 +37,7 @@ export const updateCategorySchema = Yup.object({
 });
 
 export const addServiceSchema = Yup.object({
-  Name: Yup.string().required('Service name is required')
+  name: Yup.string().required('Service name is required')
   .min(2, 'Category name must be at least 2 characters long.') 
   .max(50, 'Category name cannot exceed 50 characters.'),
   File: Yup.mixed()
@@ -51,7 +51,7 @@ export const addServiceSchema = Yup.object({
 })
 
 export const updateServiceSchema = Yup.object({
-  Name: Yup.string().required('Service name is required')
+  name: Yup.string().required('Service name is required')
   .min(2, 'Category name must be at least 2 characters long.') 
   .max(50, 'Category name cannot exceed 50 characters.'),
   File: Yup.mixed().nullable()

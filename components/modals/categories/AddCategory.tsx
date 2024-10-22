@@ -1,18 +1,20 @@
 import { FileUpload } from '@/components';
 import { CustomInput } from '@/components/FormElements';
 import { Button, PopupModal } from '@/components/ui'
-import { CategoryType } from '@/types';
+import { authFetch } from '@/lib/hooks';
+import { ApiResponse, CategoryType } from '@/types';
 import { addCategorySchema } from '@/utils/schema';
 import { ArrowLongLeftIcon } from '@heroicons/react/24/solid';
 import { Form, Formik, FormikProps } from 'formik';
 import React, { useState } from 'react'
+import toast from 'react-hot-toast';
 
-const AddCategory: React.FC<{ open: boolean; setOpen: React.Dispatch<React.SetStateAction<boolean>> }> = ({ open, setOpen }) => {
+const AddCategory: React.FC<{ getCategories: () => void, open: boolean; setOpen: React.Dispatch<React.SetStateAction<boolean>> }> = ({ open, setOpen, getCategories }) => {
 
     const [loading, setLoading] = useState(false)
 
     const initialValues: CategoryType = {
-        Name: '',
+        name: '',
         File: null,
     };
 
@@ -39,48 +41,65 @@ const AddCategory: React.FC<{ open: boolean; setOpen: React.Dispatch<React.SetSt
             <Formik
                 initialValues={initialValues}
                 validationSchema={addCategorySchema}
-                onSubmit={(values) => {
+                onSubmit={async (values) => {
+
                     setLoading(true);
-                    console.log(values);
-                    setTimeout(() => {
-                        setLoading(false);
-                    }, 100);
+
+                    const formData = new FormData()
+
+                    formData.append('name', values.name as string)
+
+                    if (values.File) {
+                        formData.append('File', values.File);
+                    }
+
+                    try {
+
+                        const response = await authFetch<ApiResponse>('/business-category/create', 'POST', formData);
+
+                        toast.success(response?.result.message || 'Business category created successfully')
+
+                        getCategories()
+
+                        setOpen(false)
+
+                    } catch (error: any) {
+                        toast.error(error.errorMessage);
+                    } finally {
+                        setLoading(false)
+                    }
+
                 }}>
-                {(props: FormikProps<CategoryType>) => {
+                {({ touched, errors }: FormikProps<CategoryType>) => (
+                    <Form autoComplete="off">
 
-                    const { touched, errors } = props;
+                        <CustomInput
+                            label="Category name"
+                            name="name"
+                            type="text"
+                            placeholder="Female salon"
+                            className='xl:text-sm text-black'
+                        />
 
-                    return (
-                        <Form autoComplete="off">
+                        <FileUpload name="File"
+                            className='mt-5'
+                            title="Category image"
+                            label="Click on this to browse for your image"
+                            multiple={false}
+                            accept="image/*"
+                            error={touched.File && !!errors.File}
+                        />
 
-                            <CustomInput
-                                label="Category name"
-                                name="Name"
-                                type="text"
-                                placeholder="Female salon"
-                                className='xl:text-sm text-black'
-                            />
+                        {touched.File && errors.File && (
+                            <div className="text-red-600 text-xs font-light mt-0 pt-1">{errors.File}</div>
+                        )}
 
-                            <FileUpload name="File"
-                                className='mt-5'
-                                title="Category image"
-                                label="Click on this to browse for your image"
-                                multiple={false}
-                                accept="image/*"
-                                error={touched.File && !!errors.File}
-                            />
+                        <Button type='submit' className='bg-black mt-5 py-6 w-full' loading={loading}>
+                            Add new category
+                        </Button>
 
-                            {touched.File && errors.File && (
-                                <div className="text-red-600 text-xs font-light mt-0 pt-1">{errors.File}</div>
-                            )}
-
-                            <Button type='submit' className='bg-black mt-5 py-6 w-full' loading={loading}>
-                                Add new category
-                            </Button>
-
-                        </Form>
-                    );
-                }}
+                    </Form>
+                )}
             </Formik>
 
         </PopupModal>

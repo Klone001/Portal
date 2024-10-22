@@ -5,14 +5,13 @@ export type AuthType = {
     deviceImei?: string;
 }
 
-export type TestimonyType = {
-    name: string,
-    comment: string,
-    image: string,
-}
-
-export type ContactType = {
-    name: string;
-    email: string;
-    message: string;
-}
+export type User = {
+    id: string;
+    userType: "Vendor" | "Admin" | "User";
+    firstName: string;
+    lastName: string;
+    organisationName: string | null; 
+    accessToken: string;
+    refreshToken: string;
+    organizationId: number;
+};

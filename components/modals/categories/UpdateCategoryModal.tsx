@@ -1,19 +1,21 @@
 import { FileUpload } from '@/components';
 import { CustomInput } from '@/components/FormElements';
 import { Button, PopupModal } from '@/components/ui'
-import { CategoryType } from '@/types';
+import { authFetch } from '@/lib/hooks';
+import { ApiResponse, CategoryType } from '@/types';
 import { updateCategorySchema } from '@/utils/schema';
 import { ArrowLongLeftIcon } from '@heroicons/react/24/solid';
 import { Form, Formik, FormikProps } from 'formik';
 import React, { useState } from 'react'
+import toast from 'react-hot-toast';
 
-const UpdateCategoryModal: React.FC<{ open: boolean; setOpen: React.Dispatch<React.SetStateAction<boolean>>; data: CategoryType | null; }> = ({ open, setOpen, data }) => {
+const UpdateCategoryModal: React.FC<{ open: boolean; setOpen: React.Dispatch<React.SetStateAction<boolean>>; data: CategoryType | null; getCategories: () => void; }> = ({ open, setOpen, data, getCategories }) => {
 
     const [loading, setLoading] = useState(false)
 
     const initialValues: CategoryType = {
         id: data?.id,
-        Name: data?.Name || '',
+        name: data?.name || '',
         File: null
     };
 
@@ -40,12 +42,38 @@ const UpdateCategoryModal: React.FC<{ open: boolean; setOpen: React.Dispatch<Rea
             <Formik
                 initialValues={initialValues}
                 validationSchema={updateCategorySchema}
-                onSubmit={(values) => {
+                onSubmit={async (values: CategoryType) => {
+
                     setLoading(true);
-                    console.log(values);
-                    setTimeout(() => {
-                        setLoading(false);
-                    }, 100);
+
+                    const formData = new FormData()
+
+                    if (values.id !== undefined) {
+                        formData.append('id', values.id.toString());
+                    }
+
+                    formData.append('name', values.name as string)
+
+                    if (values.File) {
+                        formData.append('File', values.File);
+                    }
+
+                    try {
+
+                        const response = await authFetch<ApiResponse>('/business-category/update', 'PUT', formData);
+
+                        toast.success(response?.result.message || 'Business category updated successfully')
+
+                        getCategories()
+
+                        setOpen(false)
+
+                    } catch (error: any) {
+                        toast.error(error.errorMessage);
+                    } finally {
+                        setLoading(false)
+                    }
+
                 }}>
                 {(props: FormikProps<CategoryType>) => {
 
@@ -56,7 +84,7 @@ const UpdateCategoryModal: React.FC<{ open: boolean; setOpen: React.Dispatch<Rea
 
                             <CustomInput
                                 label="Category name"
-                                name="Name"
+                                name="name"
                                 type="text"
                                 placeholder="Female salon"
                                 className='xl:text-sm text-black'
@@ -68,7 +96,7 @@ const UpdateCategoryModal: React.FC<{ open: boolean; setOpen: React.Dispatch<Rea
                                 label="Click on this to browse for your image"
                                 multiple={false}
                                 accept="image/*"
-                                imgSrc={data?.image}
+                                imgSrc={data?.imageUrl}
                                 error={touched.File && !!errors.File}
                             />
 

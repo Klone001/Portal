@@ -1,22 +1,15 @@
 export type CategoryType = {
-    id?: string | number;
-    image?: string;
-    Name?: string;
+    id?:  number;
+    name?: string;
     File?: File | null;
     vendors?: number;
     services?: number;
+    imageUrl?: string;
     status?: 'active' | 'inactive';
+
+    BusinessCategoryId?: number | null;
+    subService?: number;
 }
 
-export type ServiceType = {
-    id?: string | number;
-    image?: string;
-    File?: File | null;
-    BusinessCategoryId?: number | null;
-    Name ?: string;
-    subService?: number;
-    status?: 'active' | 'inactive';
-}
 
 export type CategoryTypeWithId = Required<Pick<CategoryType, 'id'>> & CategoryType;
-export type ServiceTypeWithId = Required<Pick<ServiceType, 'id'>> & ServiceType;

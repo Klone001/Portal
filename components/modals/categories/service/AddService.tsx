@@ -1,22 +1,24 @@
 import { CustomInput } from '@/components/FormElements';
 import { FileUpload } from '@/components';
 import { Button, PopupModal } from '@/components/ui'
-import { ServiceType } from '@/types';
 import { addServiceSchema } from '@/utils/schema';
 import { ArrowLongLeftIcon } from '@heroicons/react/24/solid';
 import { Form, Formik, FormikProps } from 'formik';
 import React, { useState } from 'react'
+import { ApiResponse, CategoryType } from '@/types';
+import { authFetch } from '@/lib/hooks';
+import toast from 'react-hot-toast';
 
-const AddService: React.FC<{ categoryId: number; open: boolean; setOpen: React.Dispatch<React.SetStateAction<boolean>> }> = ({ open, setOpen, categoryId }) => {
-    
+const AddService: React.FC<{ getServices: () => void, categoryId: number; open: boolean; setOpen: React.Dispatch<React.SetStateAction<boolean>> }> = ({ open, setOpen, categoryId, getServices }) => {
+
     const [loading, setLoading] = useState(false)
 
-    const initialValues: ServiceType = {
-        Name : '',
-        BusinessCategoryId : categoryId || null,
+    const initialValues: CategoryType = {
+        name: '',
+        BusinessCategoryId: categoryId || null,
         File: null
     };
-    
+
     return (
         <PopupModal
             size='xl'
@@ -40,14 +42,37 @@ const AddService: React.FC<{ categoryId: number; open: boolean; setOpen: React.D
             <Formik
                 initialValues={initialValues}
                 validationSchema={addServiceSchema}
-                onSubmit={(values) => {
+                onSubmit={async (values) => {
+
                     setLoading(true);
-                    console.log(values);
-                    setTimeout(() => {
-                        setLoading(false);
-                    }, 100);
+
+                    const formData = new FormData()
+                    formData.append('name', values.name as string)
+                    formData.append('BusinessCategoryId', values.BusinessCategoryId ? 
+                    values.BusinessCategoryId.toString() : '');
+                    
+                    if (values.File) {
+                        formData.append('File', values.File);
+                    }
+
+                    try {
+
+                        const response = await authFetch<ApiResponse>('/service-category/create', 'POST', formData);
+
+                        toast.success(response?.result.message || 'Service category created successfully')
+
+                        getServices()
+
+                        setOpen(false)
+
+                    } catch (error: any) {
+                        toast.error(error.errorMessage);
+                    } finally {
+                        setLoading(false)
+                    }
+
                 }}>
-                {(props: FormikProps<ServiceType>) => {
+                {(props: FormikProps<CategoryType>) => {
 
                     const { touched, errors } = props;
 
@@ -56,7 +81,7 @@ const AddService: React.FC<{ categoryId: number; open: boolean; setOpen: React.D
 
                             <CustomInput
                                 label="Service name"
-                                name="Name"
+                                name="name"
                                 type="text"
                                 placeholder=""
                                 className='xl:text-sm text-black'

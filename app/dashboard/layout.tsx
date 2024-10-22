@@ -1,37 +1,27 @@
-'use client';
+import { ClientDashboardLayout } from '@/layout'
+import { authOptions } from '@/lib';
+import { getServerSession } from 'next-auth';
+import React, { ReactNode } from 'react'
 
-import { NavBar, SideBar } from "@/components";
-import { ReactNode, useState } from "react";
+const DashboardLayout = async ({ children }: { children: ReactNode }) => {
 
-interface DashboardLayoutProps {
-    children: ReactNode;
-}
+    const session = await getServerSession(authOptions);
 
-const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
+    if (!session?.user) {
+        return null
+    }
 
-    const [open, setOpen] = useState<boolean>(false);
-    
     return (
-
         <div className='m-0 text-base antialiased'>
 
-            <SideBar open={open} setOpen={setOpen} />
+            <ClientDashboardLayout profile={session?.user}>
 
-            <main className="relative h-full transition-all duration-200 ease-soft-in-out xl:ml-[18rem] 2xl:ml-[18rem]">
+                {children}
 
-                <NavBar setOpen={setOpen} />
-
-                <div className="w-full p-3 md:p-6 m-auto overflow-x-hidden bg-white-smoke min-h-screen">
-
-                    {children}
-
-                </div>
-
-            </main>
-
+            </ClientDashboardLayout>
         </div>
 
-    );
-};
+    )
+}
 
-export default DashboardLayout;
+export default DashboardLayout

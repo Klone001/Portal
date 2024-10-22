@@ -1,6 +1,6 @@
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownSection, DropdownItem, Button } from "@nextui-org/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/24/solid";
-import { CategoryType } from "@/types";
+import { CategoryTypeWithId } from "@/types";
 
 interface DropdownItemProps {
     key: string;
@@ -8,7 +8,7 @@ interface DropdownItemProps {
     className?: string;
     color?: string;
     description?: string;
-    onClick: (category: CategoryType) => void;
+    onClick: (category: CategoryTypeWithId) => void;
 }
 
 interface DropdownSectionProps {
@@ -18,7 +18,7 @@ interface DropdownSectionProps {
 
 interface TableDropdownProps {
     menuItems: DropdownSectionProps[];
-    category: CategoryType;
+    category: CategoryTypeWithId;
 }
 
 const TableDropdown: React.FC<TableDropdownProps> = ({ menuItems, category }) => {

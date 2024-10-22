@@ -2,33 +2,53 @@
 
 import { ControlBar } from '@/components';
 import { AddService } from '@/components/modals';
+import { TableSkeleton } from '@/components/skeleton';
 import { ServiceCategoryTable } from '@/components/tables';
+import { authFetch } from '@/lib/hooks';
+import { ApiResponse, CategoryTypeWithId } from '@/types';
 import { Button } from '@nextui-org/react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-const ServiceCategoryView = ({ categoryId } : { categoryId: number }) => {
+const ServiceCategoryView = ({ categoryId }: { categoryId: number }) => {
 
     const [open, setOpen] = useState<boolean>(false)
+    const [loading, setLoading] = useState<boolean>(true);
+    const [services, setServices] = useState<CategoryTypeWithId[]>([])
+
+    async function getServices() {
+        setLoading(true);
+        const response = await authFetch<ApiResponse>(`/service-category/service?BusinessCategoryIds=${categoryId}`);
+        setServices(response?.result.items || []);
+        setLoading(false);
+    }
+
+    useEffect(() => {
+        getServices();
+    }, []);
 
     return (
         <>
 
             <div className="bg-white rounded-2xl p-5 shadow-2xl">
 
-                <ControlBar
+                <ControlBar onRefresh={getServices}
                     actionButton={
                         <Button onPress={() => setOpen(true)} className="bg-black rounded-lg text-[12px] text-white">Create New Service Category</Button>
                     } />
 
                 <div className="pt-10">
 
-                    <ServiceCategoryTable categoryId={categoryId} />
+                    {loading ? (
+                        <TableSkeleton height={35} count={10} />
+                    ) : (
+                        <ServiceCategoryTable getServices={getServices} services={services} categoryId={categoryId} />
+                    )}
 
                 </div>
 
             </div>
 
-            <AddService categoryId={categoryId} open={open} setOpen={setOpen} />
+            <AddService getServices={getServices} categoryId={categoryId} open={open} setOpen={setOpen} />
 
         </>
     );

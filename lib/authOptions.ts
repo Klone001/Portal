@@ -43,10 +43,30 @@ const authOptions = {
             throw new Error(res.errorMessage || "Login failed");
           }
 
-          const { data } = res.result;
-          const { accessToken, refreshToken, ...user } = data;
+          const { accessToken, refreshToken } = res.result.data;
+
+          // GET USER PROFILE
+          const userRes = await fetch(
+            `${process.env.NEXT_PUBLIC_API_BASE_URL}/user/get-user-profile`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${accessToken}`,
+              },
+            }
+          );
+
+          const res2 = await userRes.json();
+
+          if (!userRes.ok) {
+            throw new Error(res2.errorMessage || "Error fetching user data");
+          }
+          
+          const user = res2.result
 
           return { ...user, accessToken, refreshToken };
+
         } catch (error) {
           const message = getErrorMessage(error);
           throw new Error(message);
@@ -58,7 +78,6 @@ const authOptions = {
   callbacks: {
     async jwt({ token, user }: { token: TokenSet; user?: User }) {
       if (user) {
-        // Ensure user is being cast correctly
         token = { ...token, ...user } as TokenSet;
       }
       return token;
@@ -67,10 +86,12 @@ const authOptions = {
     async session({
       session,
       token,
+      user,
       trigger,
     }: {
       session: Session;
       token: TokenSet;
+      user: User
       trigger: string;
     }) {
 
@@ -78,9 +99,12 @@ const authOptions = {
         token = session.user as unknown as TokenSet;
       }
 
-      session.user = { ...session.user, ...token } as User;
-      return session;
-      
+      if (!session.user) return session;
+      else {
+        session.user = token as any;
+        return session;
+      }
+    
     },
 
     async signOut() {},
@@ -93,3 +117,4 @@ const authOptions = {
 };
 
 export default authOptions;
+;

@@ -10,14 +10,16 @@ import { Button } from '../ui';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import { signOut } from 'next-auth/react';
 import { Image as NextImage } from "@nextui-org/react";
+import { User } from '@/types';
 
 
 interface SidebarProps {
     open: boolean;
     setOpen: (open: boolean) => void;
+    profile: User
 }
 
-const SideBar: React.FC<SidebarProps> = ({ open, setOpen }) => {
+const SideBar: React.FC<SidebarProps> = ({ open, setOpen, profile }) => {
 
     const pathname = usePathname()
 
@@ -171,7 +173,7 @@ const SideBar: React.FC<SidebarProps> = ({ open, setOpen }) => {
                                 <NextImage as={Image} width={100} height={100} alt="Profile" src="/images/profile.png" className='w-10 h-10 max-w-10 max-h-10 rounded-full object-cover' />
 
                                     <div className="-space-y-2">
-                                        <h1 className="text-xs text-white font-medium">Tea Toye</h1>
+                                        <h1 className="text-xs text-white font-medium"> { profile.firstName } </h1>
                                         <p className='text-gray-700 text-[12px]'>@tea4toye</p>
                                     </div>
 

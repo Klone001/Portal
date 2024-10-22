@@ -5,12 +5,14 @@ import { Bars2Icon, ChevronDownIcon } from '@heroicons/react/24/solid';
 import { NotificationIcon } from '@/icons';
 import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/outline";
 import NextImage from "next/image";
+import { User } from '@/types';
 
 interface NavBarProps {
     setOpen: (open: boolean) => void;
+    profile: User
 }
 
-const NavBar: React.FC<NavBarProps> = ({ setOpen }) => {
+const NavBar: React.FC<NavBarProps> = ({ setOpen, profile }) => {
 
     const notificationCount = 120;
 
@@ -28,7 +30,7 @@ const NavBar: React.FC<NavBarProps> = ({ setOpen }) => {
                             <Image as={NextImage} width={100} height={100} alt="Profile" src="/images/profile.png" className='w-10 h-10 max-w-10 max-h-10 rounded-full object-cover' />
 
                             <div className="-space-y-1 pt-1">
-                                <h1 className="text-sm 2xl:text-base text-black font-semibold">Hey, Tea!</h1>
+                                <h1 className="text-sm 2xl:text-base text-black font-semibold">Hey, { profile.firstName }!</h1>
                                 <p className='text-gray-800 text-[12px] sm:text-xs font-light'>
                                     <span className='hidden md:block'>{moment().format('dddd, MMMM D, YYYY')}</span>
                                     <span className='block md:hidden'>{moment().format('ddd, MMM D, YYYY')}</span>

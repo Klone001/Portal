@@ -7,6 +7,7 @@ import { ServiceCategoryTable } from '@/components/tables';
 import { authFetch } from '@/lib/hooks';
 import { ApiResponse, CategoryTypeWithId } from '@/types';
 import { Button } from '@nextui-org/react';
+import { useSession } from 'next-auth/react';
 import React, { useEffect, useState } from 'react';
 
 const ServiceCategoryView = ({ categoryId }: { categoryId: number }) => {
@@ -14,10 +15,11 @@ const ServiceCategoryView = ({ categoryId }: { categoryId: number }) => {
     const [open, setOpen] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(true);
     const [services, setServices] = useState<CategoryTypeWithId[]>([])
+    const { update } = useSession();
 
     async function getServices() {
         setLoading(true);
-        const response = await authFetch<ApiResponse>(`/service-category/service?BusinessCategoryIds=${categoryId}`);
+        const response = await authFetch<ApiResponse>(`/service-category/service?BusinessCategoryIds=${categoryId}`, update);
         setServices(response?.result.items || []);
         setLoading(false);
     }
@@ -41,14 +43,14 @@ const ServiceCategoryView = ({ categoryId }: { categoryId: number }) => {
                     {loading ? (
                         <TableSkeleton height={35} count={10} />
                     ) : (
-                        <ServiceCategoryTable getServices={getServices} services={services} categoryId={categoryId} />
+                        <ServiceCategoryTable update={update} getServices={getServices} services={services} categoryId={categoryId} />
                     )}
 
                 </div>
 
             </div>
 
-            <AddService getServices={getServices} categoryId={categoryId} open={open} setOpen={setOpen} />
+            <AddService update={update} getServices={getServices} categoryId={categoryId} open={open} setOpen={setOpen} />
 
         </>
     );

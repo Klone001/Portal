@@ -10,6 +10,7 @@ export type User = {
     userType: "Vendor" | "Admin" | "User";
     firstName: string;
     lastName: string;
+    email?: string;
     organisationName: string | null; 
     accessToken: string;
     refreshToken: string;

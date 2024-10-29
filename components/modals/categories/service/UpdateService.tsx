@@ -9,7 +9,7 @@ import { ApiResponse, CategoryType } from '@/types';
 import { authFetch } from '@/lib/hooks';
 import toast from 'react-hot-toast';
 
-const UpdateServiceModal: React.FC<{ getServices: () => void, categoryId: number; open: boolean; setOpen: React.Dispatch<React.SetStateAction<boolean>>; data: CategoryType | null; }> = ({ open, setOpen, categoryId, data, getServices }) => {
+const UpdateServiceModal: React.FC<{ getServices: () => void, categoryId: number; open: boolean; setOpen: React.Dispatch<React.SetStateAction<boolean>>; data: CategoryType | null; update: (session: any) => void }> = ({ open, setOpen, categoryId, data, getServices, update }) => {
 
     const [loading, setLoading] = useState(false)
 
@@ -62,7 +62,7 @@ const UpdateServiceModal: React.FC<{ getServices: () => void, categoryId: number
 
                     try {
 
-                        const response = await authFetch<ApiResponse>('/service-category/update', 'PUT', formData);
+                        const response = await authFetch<ApiResponse>('/service-category/update', update, 'PUT', formData);
 
                         toast.success(response?.result.message || 'Service category updated successfully')
 

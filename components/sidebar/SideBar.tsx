@@ -174,7 +174,7 @@ const SideBar: React.FC<SidebarProps> = ({ open, setOpen, profile }) => {
 
                                     <div className="-space-y-2">
                                         <h1 className="text-xs text-white font-medium"> { profile.firstName } </h1>
-                                        <p className='text-gray-700 text-[12px]'>@tea4toye</p>
+                                        <p className='text-gray-700 text-[12px]'> { profile.email || '' } </p>
                                     </div>
 
                                 </div>

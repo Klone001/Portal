@@ -1,16 +1,17 @@
-import { Session, TokenSet, User } from "next-auth";
+import { Session, User, AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { JWT } from "next-auth/jwt";
 import { getErrorMessage } from "@/utils";
 
-const authOptions = {
+const authOptions: AuthOptions = {
   providers: [
     CredentialsProvider({
       id: "credentials",
       name: "credentials",
       credentials: {
-        emailAddress: {},
-        password: {},
-        deviceImei: {},
+        emailAddress: { label: "Email Address", type: "text" },
+        password: { label: "Password", type: "password" },
+        deviceImei: { label: "Device IMEI", type: "text" },
         channel: { type: "number" },
       },
       async authorize(credentials) {
@@ -43,7 +44,7 @@ const authOptions = {
             throw new Error(res.errorMessage || "Login failed");
           }
 
-          const { accessToken, refreshToken } = res.result.data;
+          const { accessToken, refreshToken } = res.result;
 
           // GET USER PROFILE
           const userRes = await fetch(
@@ -62,8 +63,8 @@ const authOptions = {
           if (!userRes.ok) {
             throw new Error(res2.errorMessage || "Error fetching user data");
           }
-          
-          const user = res2.result
+
+          const user = res2.result;
 
           return { ...user, accessToken, refreshToken };
 
@@ -76,38 +77,24 @@ const authOptions = {
   ],
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async jwt({ token, user }: { token: TokenSet; user?: User }) {
-      if (user) {
-        token = { ...token, ...user } as TokenSet;
+
+    async jwt({ token, user, trigger, session }: { token: JWT; user?: User; trigger?: string; session?: Session }) {
+      
+      if (trigger === "update" && session?.user) {
+        return { ...token, ...session.user };
       }
+
+      if (user) {
+        return { ...token, ...user };
+      }
+
       return token;
     },
 
-    async session({
-      session,
-      token,
-      user,
-      trigger,
-    }: {
-      session: Session;
-      token: TokenSet;
-      user: User
-      trigger: string;
-    }) {
-
-      if (trigger === "update" && session?.user) {
-        token = session.user as unknown as TokenSet;
-      }
-
-      if (!session.user) return session;
-      else {
-        session.user = token as any;
-        return session;
-      }
-    
+    async session({ session, token }: { session: Session; token: JWT }) {
+      session.user = token as any;
+      return session;
     },
-
-    async signOut() {},
   },
 
   pages: {
@@ -117,4 +104,3 @@ const authOptions = {
 };
 
 export default authOptions;
-;

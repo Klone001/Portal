@@ -9,7 +9,7 @@ import { ApiResponse, CategoryType } from '@/types';
 import { authFetch } from '@/lib/hooks';
 import toast from 'react-hot-toast';
 
-const AddService: React.FC<{ getServices: () => void, categoryId: number; open: boolean; setOpen: React.Dispatch<React.SetStateAction<boolean>> }> = ({ open, setOpen, categoryId, getServices }) => {
+const AddService: React.FC<{ getServices: () => void, categoryId: number; open: boolean; setOpen: React.Dispatch<React.SetStateAction<boolean>>, update: (session: any) => void }> = ({ open, setOpen, categoryId, getServices, update }) => {
 
     const [loading, setLoading] = useState(false)
 
@@ -57,7 +57,7 @@ const AddService: React.FC<{ getServices: () => void, categoryId: number; open: 
 
                     try {
 
-                        const response = await authFetch<ApiResponse>('/service-category/create', 'POST', formData);
+                        const response = await authFetch<ApiResponse>('/service-category/create', update, 'POST', formData);
 
                         toast.success(response?.result.message || 'Service category created successfully')
 

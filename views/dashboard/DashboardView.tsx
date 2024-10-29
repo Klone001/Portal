@@ -32,9 +32,9 @@ const DashboardView = () => {
   return (
     <>
 
-      <Button onPress={updateSession}>Update</Button>
+      {/* <Button onPress={updateSession}>Update</Button>
       <Button onPress={() => console.log(session)
-      }>Log Session</Button>
+      }>Log Session</Button> */}
 
     </>
   );

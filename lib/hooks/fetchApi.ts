@@ -20,9 +20,7 @@ async function refreshToken(refreshToken: string, email: string) {
 }
 
 export async function AuthGetApi(url: string) {
-    
     const session = await getServerSession(authOptions);
-
     let res = await fetch(BASE_URL + url, {
         method: "GET",
         headers: {
@@ -31,7 +29,6 @@ export async function AuthGetApi(url: string) {
     });
 
     if (res.status == 401) {
-
         if (session) session.user.accessToken = await refreshToken(session?.user.refreshToken ?? "", session?.user.email ?? '');
 
         res = await fetch(BASE_URL + url, {
@@ -40,9 +37,8 @@ export async function AuthGetApi(url: string) {
                 Authorization: `bearer ${session?.user.accessToken}`,
             },
         });
-
         return await res.json();
-
+        
     }
 
     return await res.json();

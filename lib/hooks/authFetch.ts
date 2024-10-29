@@ -2,32 +2,34 @@ import { getSession, signOut } from "next-auth/react";
 import axios from "axios";
 import { ApiResponse } from "@/types";
 
-let isRefreshingToken = false;
+let isRefreshingToken: Promise<ApiResponse> | null = null;
 
 export default async function authFetch<T>(
   url: string,
   updateSession: (session: any) => void,
   method: "GET" | "DELETE" | "POST" | "PUT" = "GET",
-  body?: any
+  body?: any,
 ): Promise<T | undefined> {
   const session = await getSession();
 
   const refreshAccessToken = async (): Promise<ApiResponse> => {
-    isRefreshingToken = true;
-    try {
-      const response = await axios.post(
+    if (!isRefreshingToken) {
+      isRefreshingToken = axios.post(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/refresh-token`,
         {
           token: session?.user?.refreshToken,
           userEmail: "adeoyesolomon2693@gmail.com",
         }
-      );
-      isRefreshingToken = false; 
-      return response.data;
-    } catch (error) {
-      isRefreshingToken = false;
-      throw error;
+      ).then((response) => {
+        isRefreshingToken = null; 
+        return response.data;
+      }).catch((error) => {
+        isRefreshingToken = null; 
+        throw error;
+      });
     }
+
+    return isRefreshingToken; 
   };
 
   try {
@@ -43,11 +45,11 @@ export default async function authFetch<T>(
 
     return response.data;
   } catch (error: any) {
-    if (error.message === "Network Error" && !isRefreshingToken) {
+    if (error.message === "Network Error") {
       try {
-
         const newSession = await refreshAccessToken();
 
+        // Update the session here
         updateSession({
           ...session,
           user: {

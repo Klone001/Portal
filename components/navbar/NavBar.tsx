@@ -1,11 +1,13 @@
 import React from 'react'
 import moment from 'moment'
 import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Image } from '@nextui-org/react';
-import { Bars2Icon, ChevronDownIcon } from '@heroicons/react/24/solid';
+import { ArrowLeftIcon, Bars2Icon, ChevronDownIcon } from '@heroicons/react/24/solid';
 import { NotificationIcon } from '@/icons';
-import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/outline";
+// import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/outline";
 import NextImage from "next/image";
 import { User } from '@/types';
+import useGoBack from '@/lib/goBack';
+import { useParams } from 'next/navigation';
 
 interface NavBarProps {
     setOpen: (open: boolean) => void;
@@ -15,6 +17,11 @@ interface NavBarProps {
 const NavBar: React.FC<NavBarProps> = ({ setOpen, profile }) => {
 
     const notificationCount = 120;
+
+    const goBack = useGoBack()
+    const params = useParams();
+
+    const isDynamicPage = Object.keys(params).length > 0;
 
     return (
         <header className="flex flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full bg-white-smoke py-4 scroll-mb-20">
@@ -27,11 +34,18 @@ const NavBar: React.FC<NavBarProps> = ({ setOpen, profile }) => {
 
                         <div className="flex items-center gap-x-3">
 
-                            <Image as={NextImage} width={100} height={100} alt="Profile" src="/images/profile.png" className='w-10 h-10 max-w-10 max-h-10 rounded-full object-cover' />
+                            {isDynamicPage && (
+                                <Button onPress={goBack} className='bg-white shadow' radius='full' isIconOnly>
+                                    <ArrowLeftIcon className='w-5' />
+                                </Button>
+                            )}
+
+                            <Image as={NextImage} width={100} height={100} alt="Profile" src="/images/profile.png" className='w-9 h-9 max-w-9 max-h-9 rounded-full object-cover'
+                            />
 
                             <div className="-space-y-1 pt-1">
-                                <h1 className="text-sm 2xl:text-base text-black font-semibold">Hey, { profile.firstName }!</h1>
-                                <p className='text-gray-800 text-[12px] sm:text-xs font-light'>
+                                <h1 className="text-sm text-black font-semibold">Hey, {profile.firstName}!</h1>
+                                <p className='text-gray-800 text-[12px] sm:text-xs'>
                                     <span className='hidden md:block'>{moment().format('dddd, MMMM D, YYYY')}</span>
                                     <span className='block md:hidden'>{moment().format('ddd, MMM D, YYYY')}</span>
                                 </p>
@@ -50,11 +64,11 @@ const NavBar: React.FC<NavBarProps> = ({ setOpen, profile }) => {
 
                     <div className="flex flex-row items-center justify-end gap-x-3 md:gap-x-4">
 
-                        <div className="hidden sm:block">
+                        {/* <div className="hidden sm:block">
                             <Button isIconOnly className='bg-white rounded-full shadow-2xl'>
                                 <AdjustmentsHorizontalIcon className="size-5 text-[#211F1F] " />
                             </Button>
-                        </div>
+                        </div> */}
 
                         <div className="hidden sm:block">
                             <Dropdown>
@@ -68,9 +82,7 @@ const NavBar: React.FC<NavBarProps> = ({ setOpen, profile }) => {
                                     </Button>
                                 </DropdownTrigger>
                                 <DropdownMenu aria-label="Static Actions">
-                                    <DropdownItem key="new">New file</DropdownItem>
-                                    <DropdownItem key="copy">Copy link</DropdownItem>
-                                    <DropdownItem key="edit">Edit file</DropdownItem>
+                                    <DropdownItem key="new"></DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>
                         </div>

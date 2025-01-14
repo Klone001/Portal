@@ -62,7 +62,7 @@ const UpdateServiceModal: React.FC<{ getServices: () => void, categoryId: number
 
                     try {
 
-                        const response = await authFetch<ApiResponse>('/service-category/update', update, 'PUT', formData);
+                        const response = await authFetch<ApiResponse>(`/service-category/update/${values.id}`, update, 'PUT', formData);
 
                         toast.success(response?.result.message || 'Service category updated successfully')
 

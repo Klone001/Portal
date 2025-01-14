@@ -18,7 +18,7 @@ export default async function authFetch<T>(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/refresh-token`,
         {
           token: session?.user?.refreshToken,
-          userEmail: "adeoyesolomon2693@gmail.com",
+          userEmail: session?.user?.email
         }
       ).then((response) => {
         isRefreshingToken = null; 
@@ -45,7 +45,8 @@ export default async function authFetch<T>(
 
     return response.data;
   } catch (error: any) {
-    if (error.message === "Network Error") {
+    
+    if (error.status ===401) {
       try {
         const newSession = await refreshAccessToken();
 
@@ -71,7 +72,7 @@ export default async function authFetch<T>(
 
         return retryResponse.data;
       } catch (refreshError) {
-        await signOut();
+        // await signOut();
       }
     }
 

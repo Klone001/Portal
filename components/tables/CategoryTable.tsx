@@ -3,7 +3,6 @@ import { TableHeader, TableHead, Table, TableBody, TableRow, TableCell } from ".
 import Checkbox from "../Checkbox";
 import { useCheckboxSelection } from "@/utils";
 import TableDropdown from "./TableDropdown";
-// import { categories } from "@/data";
 import { Chip, Image } from "@nextui-org/react";
 import { ApiResponse, CategoryTypeWithId } from "@/types";
 import { DeleteModal, UpdateCategoryModal } from "../modals";
@@ -41,7 +40,7 @@ const CategoryTable = ({ categories, getCategories, update }: { categories: Cate
     const [editData, setEditData] = useState({})
     const [openEditModal, setOpenEditModal] = useState<boolean>(false)
 
-    // DETE STATE
+    // DELETE STATE
     const [open, setOpen] = useState<boolean>(false)
     const [deleteId, setDeleteId] = useState<number | string | null>(null);
 
@@ -59,7 +58,7 @@ const CategoryTable = ({ categories, getCategories, update }: { categories: Cate
             items: [
                 {
                     key: 'view',
-                    label: 'View category',
+                    label: 'View Service category',
                     onClick: (category: CategoryTypeWithId) => router.push(`category/${category.id}`),
                 },
                 {
@@ -164,7 +163,7 @@ const CategoryTable = ({ categories, getCategories, update }: { categories: Cate
 
                                 <div className="flex items-center gap-3 pr-6">
 
-                                    <Image alt={item.name} width={200}
+                                    <Image alt={item.name} width={500}
                                         className="rounded-full object-cover w-9 h-9 max-w-10 max-h-10"
                                         src={item.imageUrl} />
 

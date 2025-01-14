@@ -19,7 +19,7 @@ const CategoryView = () => {
 
     async function getCategories() {
         setLoading(true);
-        const response = await authFetch<ApiResponse>(`/business-category/business`, update, 'GET');
+        const response = await authFetch<ApiResponse>(`/business-category`, update, 'GET');
         setCategories(response?.result.data?.items || []);
         setLoading(false);
     }
@@ -36,7 +36,7 @@ const CategoryView = () => {
                 <ControlBar
                     onRefresh={getCategories}
                     actionButton={
-                        <Button onPress={() => setOpen(true)} className="bg-black rounded-lg text-[12px] text-white">Create New Category</Button>
+                        <Button onPress={() => setOpen(true)} className="bg-black rounded-lg text-[12px] text-white">Create Business Category</Button>
                     } />
 
                 <div className="pt-10">

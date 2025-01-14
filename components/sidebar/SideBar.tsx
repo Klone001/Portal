@@ -174,12 +174,12 @@ const SideBar: React.FC<SidebarProps> = ({ open, setOpen, profile }) => {
 
                                     <div className="-space-y-2">
                                         <h1 className="text-xs text-white font-medium"> { profile.firstName } </h1>
-                                        <p className='text-gray-700 text-[12px]'> { profile.email || '' } </p>
+                                        <p className='text-gray-700 text-[12px] truncate max-w-32 w-full flex-1'> { profile.email || '' } </p>
                                     </div>
 
                                 </div>
 
-                                <Button onPress={() => signOut()} isIconOnly className='bg-transparent border-none text-white'>
+                                <Button onPress={() => signOut()} isIconOnly className='bg-transparent border-none text-white flex justify-end'>
                                     <LogoutIcon className='size-4.5' fill='#DD524D' />
                                 </Button>
 

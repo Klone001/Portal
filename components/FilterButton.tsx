@@ -4,7 +4,7 @@ import React from 'react'
 
 const FilterButton = () => {
     return (
-        <Button isIconOnly className='bg-white shadow-2xl'>
+        <Button radius='full' isIconOnly className='bg-white shadow-2xl'>
             <AdjustmentsHorizontalIcon className="size-5 text-[#1C1B1F] " />
         </Button>
     )

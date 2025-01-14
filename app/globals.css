@@ -33,6 +33,10 @@ body{
   font-family: var(--font-efcircular), sans-serif;
 }
 
+.apexcharts-text tspan, .apexcharts-legend-text{
+  font-family: var(--font-efcircular), sans-serif !important;
+}
+
 @layer base {
 
   body {

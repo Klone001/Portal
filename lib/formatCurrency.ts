@@ -1,10 +1,15 @@
 export const formatCurrency = (
-  amount: number,
-  currency: string = "NGN", 
-  locale: string = "en-NG"
+  amount: number | string,
+  currency: string = "NGN"
 ): string => {
-  return new Intl.NumberFormat(locale, {
+  const locale: string = typeof navigator !== 'undefined' ? navigator.language : 'en-NG';
+
+  const effectiveLocale = currency === 'NGN' ? 'en-NG' : locale;
+
+  const numberValue = typeof amount === "string" ? parseFloat(amount) : amount;
+
+  return new Intl.NumberFormat(effectiveLocale, {
     style: "currency",
     currency,
-  }).format(amount);
+  }).format(numberValue);
 };

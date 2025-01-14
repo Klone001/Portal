@@ -60,7 +60,7 @@ const UpdateCategoryModal: React.FC<{ open: boolean; setOpen: React.Dispatch<Rea
 
                     try {
 
-                        const response = await authFetch<ApiResponse>('/business-category/update', update, 'PUT', formData);
+                        const response = await authFetch<ApiResponse>('/business-category/upsert', update, 'POST', formData);
 
                         toast.success(response?.result.message || 'Business category updated successfully')
 

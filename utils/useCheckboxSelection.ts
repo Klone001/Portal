@@ -2,11 +2,11 @@
 
 import { useState } from 'react';
 
-const useCheckboxSelection = (data: { id: number | string }[]) => {
-    const [selectedIds, setSelectedIds] = useState<(number | string)[]>([]);
+const useCheckboxSelection = (data: { id: number }[]) => {
+    const [selectedIds, setSelectedIds] = useState<(number)[]>([]);
     const [selectAllChecked, setSelectAllChecked] = useState<boolean>(false);
 
-    const handleCheckboxChange = (id: number | string) => {
+    const handleCheckboxChange = (id: number) => {
         setSelectedIds((prevSelectedIds) => {
             const updatedSelectedIds = [...prevSelectedIds];
             const index = updatedSelectedIds.indexOf(id);

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, ButtonProps, Spinner } from '@nextui-org/react';
+import { cn } from '@/lib';
 
 type CustomButtonColor = 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger';
 type NormalSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
@@ -40,9 +41,8 @@ const button: React.FC<CustomButtonProps> = ({
     variant = 'solid',
     ...rest
 }) => {
-    const buttonClasses = `${className || ''} ${
-        isDisabled && 'bg-[#B4C1C0] cursor-not-allowed'
-    }`;
+    const buttonClasses = `${className || ''} ${isDisabled && 'bg-[#B4C1C0] cursor-not-allowed'
+        }`;
 
     return (
         <Button
@@ -51,7 +51,8 @@ const button: React.FC<CustomButtonProps> = ({
             onClick={onClick}
             color={color}
             variant={variant}
-            className={`${buttonClasses} flex items-center gap-2 rounded-full text-xs`}
+            className={cn("flex items-center gap-2 rounded-full text-xs",
+                buttonClasses)}
             bordered={bordered}
             {...rest}
         >

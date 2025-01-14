@@ -6,7 +6,7 @@ const Table: React.FC<{
     className?: string;
 }> = ({ children, className = '' }) => {
     return (
-        <div className="mx-auto">
+        <div className="">
             <div className="flex flex-col">
                 <div className="-m-1.5 overflow-x-auto scrollbar-thin">
                     <div className="p-1.5 min-w-full inline-block align-middle">
@@ -70,7 +70,7 @@ const TableCell: React.FC<{
     className?: string;
 }> = ({ children, className = '' }) => {
     return (
-        <td className={cn("py-3 whitespace-nowrap", className)}>
+        <td className={cn("py-3 !text-xs whitespace-nowrap", className)}>
             {children}
         </td>
     );

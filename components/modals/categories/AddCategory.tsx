@@ -55,7 +55,7 @@ const AddCategory: React.FC<{ getCategories: () => void, open: boolean; setOpen:
 
                     try {
 
-                        const response = await authFetch<ApiResponse>('/business-category/create', update, 'POST', formData);
+                        const response = await authFetch<ApiResponse>('/business-category/upsert', update, 'POST', formData);
 
                         toast.success(response?.result.message || 'Business category created successfully')
 

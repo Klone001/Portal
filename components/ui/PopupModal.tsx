@@ -41,7 +41,7 @@ const PopupModal = ({
     placement?: "center" | "auto" | "top" | "top-center" | "bottom" | "bottom-center" | undefined;
     showCloseButton?: boolean;
 }) => {
-    // Map custom sizes to CSS classes
+
     const sizeClasses = {
         xs: "max-w-xs",
         sm: "max-w-sm",
@@ -62,7 +62,7 @@ const PopupModal = ({
             id={name ? name : `modal-${Date.now()}`}
             isOpen={isOpen}
             onClose={onClose}
-            className={cn("py-4", size ? sizeClasses[size] : "max-w-lg", className)}
+            className={cn("py-4 mx-2", size ? sizeClasses[size] : "max-w-lg", className)}
             classNames={{
                 closeButton: "hidden",
             }}

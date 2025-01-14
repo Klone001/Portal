@@ -61,7 +61,7 @@ const AccountInfomation = ({ role }: { role: string }) => {
 
                         <div className="inline-flex flex-col gap-0 5">
                             <h2 className="text-black text-sm 2xl:text-base font-medium leading-tight">Become a vendor</h2>
-                            <p className="text-gray-700 text-[12px] 2xl:text-xs font-normal">
+                            <p className="text-gray-700 text-[12px] 2xl:text-xs font-normal leading-4">
                                 Create a vendor account for this user
                             </p>
                         </div>

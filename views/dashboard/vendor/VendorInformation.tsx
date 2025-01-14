@@ -91,7 +91,7 @@ const VendorInformation = () => {
                             <>
                                 <Image radius='full' alt='Reset' width={200} className="rounded-full object-cover size-16" src='https://randomuser.me/api/portraits/men/1.jpg' />
 
-                                <Image alt='Reset' width={500} className="rounded-lg object-cover h-16 w-72" src='https://randomuser.me/api/portraits/men/1.jpg' />
+                                <Image alt='Reset' width={500} className="rounded-lg object-cover h-16 h-16 w-52 sm:w-72" src='https://randomuser.me/api/portraits/men/1.jpg' />
                             </>
                         )}
 
@@ -129,7 +129,7 @@ const VendorInformation = () => {
 
                 <div className="py-4 flex justify-between items-center gap-5">
                     <h2 className="text-off-black text-sm font-medium leading-tight">Services Offered</h2>
-                    <div className="flex items-center gap-x-2">
+                    <div className="flex items-center gap-2 flex-wrap">
                         <Chip size='sm' className='bg-gray-200 px-2 py-4'>Male Salon</Chip>
                         <Chip size='sm' className='bg-gray-200 px-2 py-4'>Female Salon</Chip>
                         <Chip size='sm' className='bg-gray-200 px-2 py-4'> Spa </Chip>

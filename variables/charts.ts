@@ -201,12 +201,12 @@ export const barChartOptions = {
 export const topCategorySeries = [
   {
     name: "Bookings",
-    data: [70, 50, 90, 60, 65],
+    data: [70, 50, 90, 60],
     color: "#2C5B57",
   },
   {
     name: "Vendors",
-    data: [21, 30, 10, 30, 60],
+    data: [21, 30, 10, 30],
     color: "#D9D9D9",
   }
 ];

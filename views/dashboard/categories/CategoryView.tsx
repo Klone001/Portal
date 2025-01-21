@@ -7,7 +7,6 @@ import { CategoryTable } from '@/components/tables';
 import { authFetch } from '@/lib/hooks';
 import { ApiResponse, CategoryTypeWithId } from '@/types';
 import { Button } from '@nextui-org/react';
-import { useSession } from 'next-auth/react';
 import React, { useEffect, useState } from 'react';
 
 const CategoryView = () => {
@@ -15,11 +14,10 @@ const CategoryView = () => {
     const [open, setOpen] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(true);
     const [ categories, setCategories ] = useState<CategoryTypeWithId[]>([])
-    const { update } = useSession();
 
     async function getCategories() {
         setLoading(true);
-        const response = await authFetch<ApiResponse>(`/business-category`, update, 'GET');
+        const response = await authFetch<ApiResponse>(`/business-category`);
         setCategories(response?.result.data?.items || []);
         setLoading(false);
     }
@@ -44,14 +42,14 @@ const CategoryView = () => {
                     { loading ? (
                         <TableSkeleton height={35} count={10} />
                     ) : (
-                        <CategoryTable getCategories={getCategories} categories={categories} update={update} />
+                        <CategoryTable getCategories={getCategories} categories={categories} />
                     ) }
 
                 </div>
 
             </div>
 
-            <AddCategory update={update} getCategories={getCategories} open={open} setOpen={setOpen} />
+            <AddCategory getCategories={getCategories} open={open} setOpen={setOpen} />
 
         </>
     );

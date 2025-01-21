@@ -9,7 +9,7 @@ import { Form, Formik, FormikProps } from 'formik';
 import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 
-const AddCategory: React.FC<{ getCategories: () => void, open: boolean; setOpen: React.Dispatch<React.SetStateAction<boolean>>; update: (session: any) => void }> = ({ open, setOpen, getCategories, update }) => {
+const AddCategory: React.FC<{ getCategories: () => void, open: boolean; setOpen: React.Dispatch<React.SetStateAction<boolean>>; }> = ({ open, setOpen, getCategories }) => {
 
     const [loading, setLoading] = useState(false)
 
@@ -55,7 +55,7 @@ const AddCategory: React.FC<{ getCategories: () => void, open: boolean; setOpen:
 
                     try {
 
-                        const response = await authFetch<ApiResponse>('/business-category/upsert', update, 'POST', formData);
+                        const response = await authFetch<ApiResponse>('/business-category/upsert', 'POST', formData);
 
                         toast.success(response?.result.message || 'Business category created successfully')
 

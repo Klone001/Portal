@@ -3,6 +3,7 @@ import { formatCurrency } from "./formatCurrency";
 import { cn } from "./utils";
 import { AuthProvider } from "./authProvider";
 import authOptions from "./authOptions";
+import axios from './axiosConfig'
 
 export {
     EFCircular,
@@ -10,4 +11,5 @@ export {
     cn,
     AuthProvider,
     authOptions,
+    axios
 }

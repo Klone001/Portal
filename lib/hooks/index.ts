@@ -1,4 +1,4 @@
 import useHash from "./useHash";
-import authFetch from "./authFetch";
+import { authFetch } from "./authFetch";
 
 export { useHash, authFetch };

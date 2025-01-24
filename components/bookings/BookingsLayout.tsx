@@ -1,11 +1,11 @@
 'use client'
 
 import { Button } from '@nextui-org/react'
-import React from 'react'
+import React, { useState } from 'react'
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/solid';
-import Link from 'next/link';
 import { useSlider } from '@/utils';
 import { BookingCard } from '@/components/cards';
+import { CustomerBookingsModal } from '../modals';
 
 const BookingsLayout = () => {
 
@@ -17,7 +17,11 @@ const BookingsLayout = () => {
         scrollTo
     } = useSlider();
 
+    const [ open, setOpen ] = useState(false)
+
     return (
+        <>
+
         <div className="bg-white rounded-lg p-5 shadow-dashShadow">
 
             <div className="flex items-center justify-between mb-5">
@@ -59,12 +63,16 @@ const BookingsLayout = () => {
             </div>
 
             <div className="mt-5 m-auto text-center">
-                <Link href='#' className='text-blue underline underline-offset-1 text-sm'>
+                <span onClick={() => setOpen(true)} className='text-blue cursor-pointer underline underline-offset-1 text-sm'>
                     View History
-                </Link>
+                </span>
             </div>
 
         </div>
+
+        <CustomerBookingsModal open={open} setOpen={setOpen} />
+
+        </>
     )
 }
 

@@ -4,6 +4,7 @@ import DeleteModal from "./DeleteModal";
 import AddService from "./categories/service/AddService";
 import UpdateServiceModal from "./categories/service/UpdateService";
 import TransactionModal from "./TransactionModal";
+import CustomerBookingsModal from "./CustomerBookingsModal";
 
 export {
     AddCategory,
@@ -11,5 +12,6 @@ export {
     DeleteModal,
     AddService,
     UpdateServiceModal,
-    TransactionModal
+    TransactionModal,
+    CustomerBookingsModal
 }

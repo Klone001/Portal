@@ -29,6 +29,7 @@
     "react-loading-skeleton": "^3.5.0",
     "react-phone-number-input": "^3.4.8",
     "react-simple-maps": "^3.0.0",
+    "sharp": "^0.33.5",
     "tailwind-merge": "^2.5.4",
     "tailwind-scrollbar": "^3.1.0",
     "tailwindcss-debug-screens": "^2.2.1",

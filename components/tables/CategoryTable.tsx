@@ -32,7 +32,7 @@ const getStatusStyles = (status: string) => {
     return { textColor, bgColor };
 };
 
-const CategoryTable = ({ categories, getCategories, update }: { categories: CategoryTypeWithId[], getCategories: () => void, update: (session: any) => void }) => {
+const CategoryTable = ({ categories, getCategories }: { categories: CategoryTypeWithId[], getCategories: () => void }) => {
 
     const router = useRouter()
 
@@ -94,7 +94,7 @@ const CategoryTable = ({ categories, getCategories, update }: { categories: Cate
     const handleDelete = async () => {
         if (deleteId !== null) {
             try {
-                const response = await authFetch<ApiResponse>(`/business-category/id?id=${deleteId}`, update, 'DELETE');
+                const response = await authFetch<ApiResponse>(`/business-category/id?id=${deleteId}`, 'DELETE');
                 toast.success(response?.result.message || 'Category successfully deleted');
                 getCategories();
             } catch (error: any) {
@@ -199,7 +199,7 @@ const CategoryTable = ({ categories, getCategories, update }: { categories: Cate
 
             </Table>
 
-            <UpdateCategoryModal update={update} getCategories={getCategories} data={editData} open={openEditModal} setOpen={setOpenEditModal} />
+            <UpdateCategoryModal getCategories={getCategories} data={editData} open={openEditModal} setOpen={setOpenEditModal} />
 
             <DeleteModal onDelete={handleDelete} title="category" open={open} setOpen={setOpen} />
 

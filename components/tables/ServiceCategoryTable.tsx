@@ -31,7 +31,7 @@ const getStatusStyles = (status: string) => {
     return { textColor, bgColor };
 };
 
-const ServiceCategoryTable = ({ categoryId, services, getServices, update } : { categoryId: number, services: CategoryTypeWithId[], getServices: () => void, update: (session: any) => void }) => {
+const ServiceCategoryTable = ({ categoryId, services, getServices } : { categoryId: number, services: CategoryTypeWithId[], getServices: () => void }) => {
 
     // UPDATE DATA STATE
     const [editData, setEditData] = useState({})
@@ -86,7 +86,7 @@ const ServiceCategoryTable = ({ categoryId, services, getServices, update } : { 
     const handleDelete = async () => {
         if (deleteId !== null) {
             try {
-                const response = await authFetch<ApiResponse>(`/service-category/${deleteId}`, update, 'DELETE');
+                const response = await authFetch<ApiResponse>(`/service-category/${deleteId}`, 'DELETE');
                 toast.success(response?.result.message || 'Service category successfully deleted');
                 getServices();
             } catch (error: any) {
@@ -182,7 +182,7 @@ const ServiceCategoryTable = ({ categoryId, services, getServices, update } : { 
 
             </Table>
 
-            <UpdateServiceModal update={update} getServices={getServices} categoryId={categoryId} data={editData} open={openEditModal} setOpen={setOpenEditModal} />
+            <UpdateServiceModal getServices={getServices} categoryId={categoryId} data={editData} open={openEditModal} setOpen={setOpenEditModal} />
 
             <DeleteModal onDelete={handleDelete} title="service category" open={open} setOpen={setOpen} />
 

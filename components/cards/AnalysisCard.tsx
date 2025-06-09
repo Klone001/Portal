@@ -27,7 +27,7 @@ const AnalysisCard: React.FC<AnalysisCardProps> = ({
 
             <div className="border-b border-gray-80 pb-3">
 
-                <h5 className="text-sm 2xl:text=base text-black pb-2">{title}</h5>
+                <h5 className="text-sm 2xl:text-base text-black pb-2">{title}</h5>
 
                 <h1 className="text-black font-semibold text-xl 2xl:text-2xl tracking-tight pb-1">
                     {formatValue ? formatValue(value) : value}

@@ -11,6 +11,8 @@ import CustomerDetails from "./dashboard/customer/CustomerDetails"
 import VendorView from "./dashboard/vendor/VendorView"
 import VendorDetailsView from "./dashboard/vendor/VendorDetailsView"
 
+import { FinanceView } from "./dashboard"
+
 export {
     LoginView,
 
@@ -23,5 +25,7 @@ export {
     CustomerDetails,
     
     VendorView,
-    VendorDetailsView
+    VendorDetailsView,
+
+    FinanceView
 }

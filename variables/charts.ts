@@ -40,10 +40,9 @@ export const lineChartOption = {
   tooltip: {
     style: {
       fontSize: "12px",
-
       backgroundColor: "#000000"
     },
-    theme: 'dark',
+    theme: 'light',
     x: {
       format: "dd/MM/yy HH:mm",
     },
@@ -305,4 +304,106 @@ export const topCategoryOptions = {
       horizontal: true,
     },
   },
+};
+
+
+// FINACNE
+export const financeBarChartOptions = {
+  tooltip: {
+    style: {
+      fontSize: "13px",
+      backgroundColor: "#FFF"
+    },
+    onDatasetHover: {
+      style: {
+        fontSize: "12px",
+
+      },
+    },
+  },
+  chart: {
+    toolbar: {
+      show: false,
+    },
+  },
+  xaxis: {
+    categories: [
+      "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    ],
+    show: false,
+    labels: {
+      show: true,
+      style: {
+        colors: "#ACACAC",
+        fontSize: "12px",
+        fontWeight: "400",
+      },
+    },
+    axisBorder: {
+      show: false,
+    },
+    axisTicks: {
+      show: false,
+    },
+  },
+  yaxis: {
+    show: true,
+    opposite: true,
+    labels: {
+      show: true,
+      style: {
+        colors: '#ACACAC',
+        fontSize: '13px',
+        fontWeight: 400,
+      },
+    },
+  },
+
+  grid: {
+    borderColor: "rgba(163, 174, 208, 0.3)",
+    show: true,
+    yaxis: {
+      lines: {
+        show: false,
+        opacity: 0.5,
+      },
+    },
+    row: {
+      opacity: 0.5,
+    },
+    xaxis: {
+      lines: {
+        show: false,
+      },
+    },
+  },
+  fill: {
+    type: "solid",
+    colors: '#000',
+  },
+  colors: '#000',
+  dataLabels: {
+    enabled: false,
+  },
+  legend: {
+    show: true,
+    position: "top",
+    horizontalAlign: "left",
+    floating: true,
+    fontSize: "13px",
+    fontWeight: 400,
+    offsetY: -4,
+  },
+  plotOptions: {
+    bar: {
+      borderRadius: 12,
+      columnWidth: "40%",
+      gap: 5,
+    },
+  },
+  stroke: {
+    colors: ["transparent"],
+    width: 2
+  }
 };

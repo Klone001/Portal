@@ -19,6 +19,7 @@ import UserPlus from "./UserPlus";
 import DisactivateIcon from "./DisactivateIcon";
 import ReportIcon from "./ReportIcon";
 import WalletIcon from "./WalletIcon";
+import GroupUserIcon from "./GroupUserIcon";
 
 export {
     DashboardIcon,
@@ -30,5 +31,6 @@ export {
     UserPlus,
     DisactivateIcon,
     ReportIcon,
-    WalletIcon
+    WalletIcon,
+    GroupUserIcon
 }

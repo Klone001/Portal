@@ -1,3 +1,5 @@
+'use client'
+
 import React from "react";
 import {
     Drawer,
@@ -8,7 +10,7 @@ import {
 
 interface SideDrawerProps {
     isOpen: boolean;
-    onClose: () => void;
+    onClose: (value?: any) => any;
     size?: "xs" | "sm" | "md" | "lg" | "full";
     placement?: "left" | "right" | "top" | "bottom";
     title?: string;
@@ -22,7 +24,6 @@ interface SideDrawerProps {
     children: React.ReactNode;
     backdrop?: "transparent" | "opaque" | "blur";
     isDismissable?: boolean;
-    isKeyboardDismissDisabled?: boolean;
     hideCloseButton?: boolean;
 }
 
@@ -36,7 +37,6 @@ const SideDrawer: React.FC<SideDrawerProps> = ({
     children,
     backdrop = "opaque",
     isDismissable = false,
-    isKeyboardDismissDisabled = true,
     hideCloseButton = false,
 }) => {
     return (
@@ -48,23 +48,23 @@ const SideDrawer: React.FC<SideDrawerProps> = ({
             motionProps={motionProps}
             backdrop={backdrop}
             isDismissable={isDismissable}
-            isKeyboardDismissDisabled={isKeyboardDismissDisabled}
             classNames={{
                 closeButton: hideCloseButton ? 'hidden' : '!bg-gray-200 p-3 text-lg text-black',
             }}
             className="rounded-none">
             <DrawerContent>
-                <>
+                {(onClose) => (
+                    <>
 
-                    <DrawerBody className={hideCloseButton ? "pt-6" : "pt-16"}>
-                        {children}
-                    </DrawerBody>
+                        <DrawerBody className={hideCloseButton ? "pt-6" : "pt-16"}>
+                            {children}
+                        </DrawerBody>
 
-                    {footerContent && (
-                        <DrawerFooter className="flex flex-col gap-1">{footerContent}</DrawerFooter>
-                    )}
-
-                </>
+                        {footerContent && (
+                            <DrawerFooter className="flex flex-col gap-1">{footerContent}</DrawerFooter>
+                        )}
+                    </>
+                )}
             </DrawerContent>
         </Drawer>
     );

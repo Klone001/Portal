@@ -132,8 +132,7 @@ export default function DateSelector({
                     isIconOnly
                     radius="full"
                     onClick={handlePrevMonth}
-                    className="border border-[#F6F6F6]"
-                >
+                    className="border border-[#F6F6F6]">
                     <ArrowLeftIcon className="h-4 w-4" />
                 </Button>
 
@@ -146,8 +145,7 @@ export default function DateSelector({
                     isIconOnly
                     radius="full"
                     onClick={handleNextMonth}
-                    className="border border-[#F6F6F6]"
-                >
+                    className="border border-[#F6F6F6]">
                     <ArrowRightIcon className="h-4 w-4" />
                 </Button>
             </div>

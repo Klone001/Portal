@@ -14,6 +14,11 @@ import AddBusinessIcon from "./AddBusinessIcon";
 import SearchInsightIcon from "./SearchInsightIcon";
 import MailForwardIcon from "./MailForwardIcon";
 import UnplugIcon from "./UnplugIcon";
+import CheckPlusIcon from "./CheckPlusIcon";
+import UserPlus from "./UserPlus";
+import DisactivateIcon from "./DisactivateIcon";
+import ReportIcon from "./ReportIcon";
+import WalletIcon from "./WalletIcon";
 
 export {
     DashboardIcon,
@@ -21,4 +26,9 @@ export {
     ShopIcon,
     ChartIcon, CustomerIcon, SupportIcon, SettingsIcon, LogoutIcon, NotificationIcon, RefreshIcon, UploadIcon, LockResetIcon, AddBusinessIcon, SearchInsightIcon,
     MailForwardIcon, UnplugIcon,
+    CheckPlusIcon,
+    UserPlus,
+    DisactivateIcon,
+    ReportIcon,
+    WalletIcon
 }

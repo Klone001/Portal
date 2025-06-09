@@ -19,6 +19,7 @@ const DashboardLayout = async ({ children }: { children: ReactNode }) => {
                 {children}
 
             </ClientDashboardLayout>
+            
         </div>
 
     )

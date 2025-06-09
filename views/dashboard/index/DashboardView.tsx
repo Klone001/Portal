@@ -9,11 +9,11 @@ const DashboardView = () => {
 
       <div className="flex flex-wrap lg:flex-row -mx-4 bg-transparent mb-4 lg:mb-0">
 
-        <div className="w-full lg:w-[70%] xl:w-[75%] px-4 mb-4 space-y-5  flex flex-col">
+        <div className="w-full lg:w-[70%] 2xl:w-[80%] px-4 mb-4 space-y-5  flex flex-col">
 
           <Overview />
 
-          <div className="grid md:grid-cols-2 gap-5">
+          <div className="grid md:grid-cols-2 gap-3">
 
             <TotalRevenue />
 
@@ -27,7 +27,7 @@ const DashboardView = () => {
 
         </div>
 
-        <div className="w-full lg:w-[30%] xl:w-[25%] pr-4 pl-4 lg:pl-0 space-y-5  flex flex-col">
+        <div className="w-full lg:w-[30%] 2xl:w-[20%] pr-4 pl-4 lg:pl-0 space-y-5  flex flex-col">
 
           <LiveActivity />
 

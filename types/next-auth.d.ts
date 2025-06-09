@@ -6,3 +6,9 @@ declare module "next-auth" {
     user: User;
   }
 }
+
+declare global {
+    interface Window {
+        google: any;
+    }
+}

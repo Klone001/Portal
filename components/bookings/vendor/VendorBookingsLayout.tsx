@@ -1,7 +1,8 @@
 import React from 'react'
 import BookingList from './BookingList'
 
-const VendorBookingsLayout = () => {
+const VendorBookingsLayout = ({ setOpen }: { setOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {
+
     return (
         <div className="bg-white rounded-lg p-5 shadow-dashShadow h-full">
 
@@ -9,7 +10,7 @@ const VendorBookingsLayout = () => {
 
                 <h2 className="text-black text-base 2xl:text-lg font-medium">Bookings</h2>
 
-                <button className='text-xs text-blue underline underline-offset-2 !p-0'>View All</button>
+                <button onClick={() => setOpen(true)} className='text-xs text-blue underline underline-offset-2 !p-0'>View All</button>
 
             </div>
 

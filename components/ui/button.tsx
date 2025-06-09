@@ -51,7 +51,7 @@ const button: React.FC<CustomButtonProps> = ({
             onClick={onClick}
             color={color}
             variant={variant}
-            className={cn("flex items-center gap-2 rounded-full text-xs",
+            className={cn("flex items-center gap-2 rounded-full text-xs border-1",
                 buttonClasses)}
             bordered={bordered}
             {...rest}

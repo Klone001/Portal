@@ -1,8 +1,13 @@
 export type AuthType = {
+    email?: string;
     emailAddress?: string;
+    lastName?: string;
+    firstName?: string;
     password?: string;
     channel?: number;
     deviceImei?: string;
+    confirmPassword?: string;
+    phone?: string;
 }
 
 export type User = {
@@ -11,7 +16,7 @@ export type User = {
     firstName: string;
     lastName: string;
     email?: string;
-    organisationName: string | null; 
+    organisationName: string | null;
     accessToken: string;
     refreshToken: string;
     organizationId: number;

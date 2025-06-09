@@ -3,8 +3,10 @@ import RefreshButton from './RefreshButton';
 import SearchInput from './SearchInput';
 import FilterButton from './FilterButton';
 import { Button } from '@nextui-org/react';
-import { ArrowUpOnSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { ArrowUpOnSquareIcon, StarIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { MailForwardIcon, UnplugIcon } from '@/icons';
+import { useQueryParams } from '@/utils';
+import RatingFilters from './RatingFilter';
 
 interface ControlBarProps {
     actionButton?: React.ReactNode;
@@ -20,10 +22,22 @@ interface ControlBarProps {
 
 const ControlBar: React.FC<ControlBarProps> = ({ actionButton, onRefresh, placeholder, buttons = [], onDelete, onBroadcast, onDeactivate, onExport, isDisabled }) => {
 
+    const { updateQueryParams, searchParams } = useQueryParams()
+    const filter = searchParams.get('filterBy')
+    const status = searchParams.get('status')
+
+    const handleQueryParams = (key: string, value: string) => {
+        updateQueryParams({ [key]: value });
+    };
+
     return (
         <div className="flex items-center justify-between flex-wrap gap-x-5 gap-y-3 md:flex-nowrap">
 
-            <div className="order-2 md:order-1 flex items-center gap-2 flex-wrap">
+            <div className="order-2">
+                { filter === 'rating' && <RatingFilters /> }
+            </div>
+
+            <div className="order-2 md:order-1 flex items-center gap-3 flex-wrap">
 
                 {buttons.includes('delete') && !isDisabled && (
                     <Button onPress={onDelete} size='sm' startContent={<TrashIcon className='text-white w-5 mb-1' />} radius='full' className='bg-error-400 h-9 text-white text-xs'>
@@ -51,11 +65,44 @@ const ControlBar: React.FC<ControlBarProps> = ({ actionButton, onRefresh, placeh
                     </Button>
                 )}
 
+                {filter === 'status' ? (
+                    <>
+
+                        <Button onPress={() => handleQueryParams('status', 'active')} radius='full'
+                            className={`${status === 'active' ? 'bg-success-50 text-success' : 'bg-gray-100'} text-xs h-9`} size='sm'>
+                            Active
+                        </Button>
+
+                        <Button onPress={() => handleQueryParams('status', 'inactive')} radius='full'
+                            className={`${status === 'inactive' ? 'bg-error-5 text-error-700' : 'bg-gray-100'} text-xs h-9`} size='sm'>
+                            Inactive
+                        </Button>
+
+                    </>
+                ) : (
+                    ''
+                )}
+
             </div>
 
             <div className={`flex items-center gap-2 justify-end w-full sm:w-auto order-1 md:order-2 ${actionButton ? 'flex-wrap' : ''}`}>
 
-                <SearchInput placeholder={placeholder} />
+                <SearchInput
+                    keyName={
+                        filter === 'location'
+                            ? 'location'
+                            : filter === 'service_category'
+                                ? 'service_category'
+                                : undefined
+                    }
+                    placeholder={
+                        filter === 'location'
+                            ? 'Type in City/State'
+                            : filter === 'service_category'
+                                ? 'Type in a Service Category'
+                                : placeholder
+                    }
+                />
 
                 {actionButton && actionButton}
 

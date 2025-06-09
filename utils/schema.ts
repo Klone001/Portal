@@ -62,3 +62,11 @@ export const updateServiceSchema = Yup.object({
           return !value || (value instanceof File && value.type.startsWith('image/'));
       }),
 })
+
+
+// CREATE VENDOR SCHEMA
+export const EmailSchema = Yup.object({
+  email: Yup.string()
+    .email("Email address is invalid")
+    .required("Email address is required"),
+});

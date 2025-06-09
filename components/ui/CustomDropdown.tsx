@@ -11,6 +11,7 @@ interface DropdownItemProps<T> {
     label: string;
     className?: string;
     description?: string;
+    icon?: React.ReactNode;
     onClick?: (item: T) => void;
 }
 
@@ -46,6 +47,7 @@ const CustomDropdown = <T,>({ menuItems, item, trigger }: CustomDropdownProps<T>
                                 key={dropdownItem.key}
                                 className={dropdownItem.className || ''}
                                 description={dropdownItem.description || ""}
+                                endContent={dropdownItem.icon}
                                 onClick={dropdownItem.onClick}>
                                 {dropdownItem.label}
                             </DropdownItem>

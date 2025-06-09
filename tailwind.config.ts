@@ -32,6 +32,7 @@ const config: Config = {
           DEFAULT: "var(--input)",
           focus: "var(--input-focus)"
         },
+        'success-50': '#E7F6EC',
         success: '#04802E',
         "success-400": "#0F973D",
         
@@ -56,10 +57,13 @@ const config: Config = {
         
         "blue": "#005FCF",
         
+        "error-5": "#FFF2F2",
         "error-400": "#D42620",
         "error-500": "#CB1A14",
+        "error-700": "#9E0A05",
         
         "secondary-200": "#E0BF6A",
+        "secondary-400": "#D1A020",
         "secondary-500": "#BE921D",
         "secondary-800": "#58430D",
         "secondary-50": "#FAF6E9",

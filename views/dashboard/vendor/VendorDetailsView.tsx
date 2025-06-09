@@ -1,13 +1,17 @@
+'use client'
 import { AccountInfomation, AccountInsight, LoginInformation } from '@/components/account'
 import { VendorBookingsLayout } from '@/components/bookings'
 import { Button } from '@nextui-org/react'
-import React from 'react'
+import React, { useState } from 'react'
 import VendorInformation from './VendorInformation'
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 import { Alert } from '@/components/ui'
 import { TransactionLayout } from '@/components/transactions'
+import VendorBookingModal from '@/components/modals/VendorBookingModal'
 
 const VendorDetailsView = ({ vendorId }: { vendorId: number }) => {
+
+  const [ open, setOpen ] = useState<boolean>(false)
 
   return (
     <>
@@ -44,7 +48,7 @@ const VendorDetailsView = ({ vendorId }: { vendorId: number }) => {
 
           <div className="grid md:grid-cols-2 gap-5">
 
-            <VendorBookingsLayout />
+            <VendorBookingsLayout setOpen={setOpen} />
 
             <TransactionLayout />
 
@@ -72,6 +76,8 @@ const VendorDetailsView = ({ vendorId }: { vendorId: number }) => {
         <Button variant='light' className='text-off-black text-xs'>Suspend Account</Button>
 
       </div>
+
+      <VendorBookingModal open={open} setOpen={setOpen} />
 
     </>
   )

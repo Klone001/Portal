@@ -4,6 +4,7 @@ import { ApiResponse } from "./api";
 import { CusotmerType } from "./Customer";
 import { VendorType } from "./Vendor";
 import { TransactionType } from "./transactions";
+import { ActivityType } from "./dashboard";
 
 export type {
   AuthType,
@@ -13,5 +14,6 @@ export type {
   User,
   CusotmerType,
   VendorType,
-  TransactionType
+  TransactionType,
+  ActivityType
 };

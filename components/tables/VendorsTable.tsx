@@ -8,6 +8,8 @@ import moment from 'moment';
 import CustomDropdown from '../ui/CustomDropdown';
 import { EllipsisVerticalIcon } from '@heroicons/react/24/solid';
 import { useRouter } from 'next/navigation';
+import { UserIcon } from '@heroicons/react/24/outline';
+import { DisactivateIcon, ReportIcon, WalletIcon } from '@/icons';
 
 const VendorsTable = ({ onSelectionChange }: { onSelectionChange: (selectedIds: number[]) => void; }) => {
 
@@ -33,10 +35,10 @@ const VendorsTable = ({ onSelectionChange }: { onSelectionChange: (selectedIds: 
                 textColor = "text-success-600";
                 bgColor = "bg-[#F8FCF9]";
                 break;
-            // case "Inactive":
-            //     textColor = "text-[#ACACAC]";
-            //     bgColor = "bg-[#FAFAFA]";
-            //     break;
+            case "Inactive":
+                textColor = "text-[#ACACAC]";
+                bgColor = "bg-[#FAFAFA]";
+                break;
             case "Pending":
                 textColor = "text-[#805D04]";
                 bgColor = "bg-[#FCFBF8]";
@@ -56,26 +58,25 @@ const VendorsTable = ({ onSelectionChange }: { onSelectionChange: (selectedIds: 
                     key: 'view',
                     label: 'View Profile',
                     onClick: (id: number) => router.push(`vendor/${id}`),
+                    icon: <UserIcon className='size-5' />
                 },
                 {
                     key: 'edit',
                     label: 'Finances',
                     onClick: (id: number) => router.push(`vendor/${id}`),
+                    icon: <WalletIcon className='size-4' />
                 },
                 {
                     key: 'disactivate',
                     label: 'Deactivate business',
                     onClick: (id: number) => router.push(`vendor/${id}`),
-                },
-                {
-                    key: 'disactivate',
-                    label: 'Approve verification',
-                    onClick: (id: number) => router.push(`vendor/${id}`),
+                    icon: <DisactivateIcon className='size-4' />
                 },
                 {
                     key: 'report',
                     label: 'Generate report',
                     onClick: (id: number) => router.push(`vendor/${id}`),
+                    icon: <ReportIcon className='size-4' />
                 },
             ],
         }

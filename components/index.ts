@@ -5,6 +5,9 @@ import Checkbox from './Checkbox'
 import FileUpload from './FileUpload'
 import ImageUploader from './ImageUploader'
 import TrendIndicator from './TrendIndicator'
+import AuthTitle from './AuthTitle'
+import SelectionCard from './SelectionCard'
+import DateSelector from './DateSelector'
 
 export {
     SideBar,
@@ -13,5 +16,8 @@ export {
     Checkbox,
     FileUpload,
     ImageUploader,
-    TrendIndicator
+    TrendIndicator,
+    AuthTitle,
+    SelectionCard,
+    DateSelector
 }

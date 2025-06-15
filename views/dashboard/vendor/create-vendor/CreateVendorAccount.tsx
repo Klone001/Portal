@@ -15,7 +15,7 @@ const CreateVendorAccount = ({ open, setOpen, email }: { open: boolean; setOpen:
         setOpen(false)
     }
 
-    const [currentStep, setCurrentStep] = useState<string>('onboarding_four');
+    const [currentStep, setCurrentStep] = useState<string>('create_account');
 
     const steps: Step[] = [
         { id: 'create_account', component: VendorInfo },

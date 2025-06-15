@@ -1,39 +1,7 @@
 import { AuthTitle, SelectionCard } from '@/components';
 import { Button } from '@/components/ui';
+import { serviceCategoryData } from '@/data';
 import React, { useState } from 'react'
-
-const data = [
-    {
-        label: "Tattoo & Piercing",
-        icon: "/images/categories/tatoo.png",
-        disabled: false,
-    },
-    {
-        label: "Female salon",
-        icon: "/images/categories/female.png",
-        disabled: false,
-    },
-    {
-        label: "Male salon",
-        icon: "/images/categories/male.png",
-        disabled: false,
-    },
-    {
-        label: "Spa",
-        icon: "/images/categories/spa.png",
-        disabled: false,
-    },
-    {
-        label: "Restaurant",
-        icon: "/images/categories/rest.png",
-        disabled: true,
-    },
-    {
-        label: "Car rentals",
-        icon: "/images/categories/car.png",
-        disabled: true,
-    }
-];
 
 const OnBoardingStepTwo = ({ onNextStep }: { onNextStep: () => void; }) => {
 
@@ -66,7 +34,7 @@ const OnBoardingStepTwo = ({ onNextStep }: { onNextStep: () => void; }) => {
 
             <div className="grid grid-cols-4 gap-4 pt-12 mb-12 lg:mb-28">
 
-                {data?.map((item, index: number) => (
+                {serviceCategoryData?.map((item, index: number) => (
                     <SelectionCard
                         key={index}
                         label={item.label}

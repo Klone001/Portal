@@ -1,11 +1,11 @@
 'use client';
 
 import { NavBar, SideBar } from "@/components";
-import { User } from "@/types";
+import type { User } from "@/types";
 import { ReactNode, useState } from "react";
 
 
-const ClientDashboardLayout = ({ children, profile } : { children: ReactNode, profile: User } ) => {
+const ClientDashboardLayout = ({ children, profile } : { children: ReactNode, profile: Partial<User> } ) => {
     
     const [open, setOpen] = useState<boolean>(false);
 

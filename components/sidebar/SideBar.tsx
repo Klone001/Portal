@@ -16,7 +16,7 @@ import { User } from '@/types';
 interface SidebarProps {
     open: boolean;
     setOpen: (open: boolean) => void;
-    profile: User
+    profile: Partial<User>
 }
 
 const SideBar: React.FC<SidebarProps> = ({ open, setOpen, profile }) => {

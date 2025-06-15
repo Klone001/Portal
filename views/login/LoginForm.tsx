@@ -7,22 +7,24 @@ import { Button } from '@/components/ui';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import toast from 'react-hot-toast';
-import { AuthType } from '@/types';
+import type { AuthType } from '@/types';
 import { LoginSchema } from '@/utils/schema';
 
 const LoginForm: React.FC = () => {
+
+    type LoginType = Omit<AuthType, 'confirmPassword' | 'deviceImei' | 'channel'>
 
     const callbackUrl = useSearchParams().get("callbackUrl");
 
     const [loading, setLoading] = useState(false);
     const router = useRouter();
 
-    const initialValues: AuthType = {
+    const initialValues: LoginType = {
         emailAddress: '',
         password: '',
     };
 
-    const handleSubmit = async (values: AuthType) => {
+    const handleSubmit = async (values: LoginType) => {
 
         setLoading(true);
 
@@ -50,9 +52,8 @@ const LoginForm: React.FC = () => {
         <Formik
             initialValues={initialValues}
             validationSchema={LoginSchema}
-            onSubmit={handleSubmit}
-        >
-            {(props: FormikProps<AuthType>) => (
+            onSubmit={handleSubmit}>
+            {() => (
                 <Form autoComplete="off">
 
                     <CustomInput

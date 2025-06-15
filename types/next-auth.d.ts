@@ -1,14 +1,14 @@
 import NextAuth from "next-auth/next";
 import { User } from "./User";
 
-declare module "next-auth" {
+declare module 'next-auth' {
   interface Session {
-    user: User;
+    user: Partial<User>;
   }
 }
 
 declare global {
-    interface Window {
-        google: any;
+    interface window {
+        google: unknown;
     }
 }

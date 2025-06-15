@@ -1,6 +1,6 @@
 import { CustomInput } from '@/components/FormElements';
 import { Button, PopupModal } from '@/components/ui'
-import { AuthType } from '@/types';
+import type { User } from '@/types';
 import { EmailSchema } from '@/utils/schema';
 import { Form, Formik } from 'formik';
 import React, { useState } from 'react'
@@ -8,7 +8,7 @@ import CreateVendorAccount from './CreateVendorAccount';
 
 const CreateVendorEmail = ({ open, setOpen }: { open: boolean; setOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {
 
-    const initialValues: AuthType = {
+    const initialValues: Partial<Pick<User, 'email'>> = {
         email: '',
     };
 

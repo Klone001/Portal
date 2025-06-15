@@ -11,7 +11,7 @@ import { useParams } from 'next/navigation';
 
 interface NavBarProps {
     setOpen: (open: boolean) => void;
-    profile: User
+    profile: Partial<User>
 }
 
 const NavBar: React.FC<NavBarProps> = ({ setOpen, profile }) => {

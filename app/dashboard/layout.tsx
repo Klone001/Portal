@@ -14,7 +14,7 @@ const DashboardLayout = async ({ children }: { children: ReactNode }) => {
     return (
         <div className='m-0 text-base antialiased'>
 
-            <ClientDashboardLayout profile={session?.user}>
+            <ClientDashboardLayout profile={session?.user }>
 
                 {children}
 

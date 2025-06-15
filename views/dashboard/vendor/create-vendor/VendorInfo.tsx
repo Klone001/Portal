@@ -1,6 +1,6 @@
 import { CustomInput, CustomPassword, CustomPhoneInput } from '@/components/FormElements'
 import { Button } from '@/components/ui'
-import { AuthType } from '@/types'
+import type { AuthType } from '@/types'
 import { Form, Formik } from 'formik'
 import React, { useState } from 'react'
 
@@ -9,14 +9,13 @@ const VendorInfo: React.FC<{
     onNextStep: () => void;
 }> = ({ email, onNextStep }) => {
 
-    const initialValues: AuthType = {
+    const initialValues: Omit<AuthType, 'channel' | 'deviceImei'> = {
         email: email || '',
         firstName: '',
         lastName: '',
         phone: '',
         password: '',
-        confirmPassword: '',
-        channel: 3
+        confirmPassword: ''
     };
 
     const [loading, setLoading] = useState(false)

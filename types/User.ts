@@ -1,23 +1,20 @@
-export type AuthType = {
-    email?: string;
-    emailAddress?: string;
-    lastName?: string;
-    firstName?: string;
-    password?: string;
-    channel?: number;
-    deviceImei?: string;
-    confirmPassword?: string;
-    phone?: string;
-}
-
 export type User = {
     id: string;
     userType: "Vendor" | "Admin" | "User";
     firstName: string;
     lastName: string;
-    email?: string;
-    organisationName: string | null;
+    email: string;
+    phone: string;
+    organizationName: string | null;
     accessToken: string;
     refreshToken: string;
     organizationId: number;
+};
+
+export type AuthType = Partial<Pick<User, 'email' | 'phone' | 'firstName' | 'lastName'>> & {
+    emailAddress?: string;
+    password: string;
+    confirmPassword: string;
+    channel: number;
+    deviceImei: string;
 };

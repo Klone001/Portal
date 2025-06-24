@@ -1,4 +1,4 @@
-import { ActivityType } from "@/types";
+import type { ActivityType } from "@/types";
 
 export const activityData: ActivityType[] = [
     {

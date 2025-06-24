@@ -20,7 +20,7 @@ const SuccessReg = ({ setOpen }: { setOpen: React.Dispatch<React.SetStateAction<
 
                     <Button onPress={() => setOpen(false)}>Return to Home</Button>
 
-                    <Button className='bg-[#F3F5F5] text-off-black'>Set up account</Button>
+                    <Button  className='bg-[#F3F5F5] text-off-black'>Set up account</Button>
 
                 </div>
 

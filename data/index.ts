@@ -4,7 +4,7 @@ import transactions from "./transactions";
 import { activityData, financeactivityData } from "./activities";
 import { weekDays, months, dayMap } from "./date";
 import { serviceCategoryData, vendorCount } from "./categories";
-import { financeTrxData } from "./dashboard";
+import { financeTrxData, overviewSalesData, overviewRevenueData } from "./dashboard";
 
 export {
     customers,
@@ -17,5 +17,7 @@ export {
     serviceCategoryData,
     vendorCount,
     financeactivityData,
-    financeTrxData
+    financeTrxData,
+    overviewSalesData,
+    overviewRevenueData
 }

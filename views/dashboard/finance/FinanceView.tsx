@@ -1,40 +1,11 @@
 import React from 'react'
-import { OverviewType } from '@/types'
 import { LiveActivity, Overview } from '@/components/dashboard'
-import { financeactivityData } from '@/data'
+import { financeactivityData, overviewRevenueData } from '@/data'
 import FinaceChart from './FinaceChart'
 import FinanceTransactions from './transactions/FinanceTransactions'
 import { FinanceRevenue } from './revenue'
 
 const FinanceView = () => {
-
-    const overviewData: OverviewType[] = [
-        {
-            title: 'Total Revenue',
-            value: 560000,
-            isCurrency: true,
-            trend: 'up',
-            percentage: '2.15',
-            description: 'Higher than last month',
-            hasBorder: true,
-        },
-        {
-            title: 'Revenue by Vendors',
-            value: 60452,
-            trend: 'down',
-            percentage: '0.15',
-            description: 'Lesser than last month',
-            hasBorder: true,
-        },
-        {
-            title: 'Revenue by Individuals',
-            value: 320134,
-            trend: 'up',
-            percentage: '5.15',
-            description: 'Higher than last month',
-            hasBorder: false,
-        },
-    ]
 
     return (
         <>
@@ -43,7 +14,7 @@ const FinanceView = () => {
 
                 <div className="w-full lg:w-[70%] 2xl:w-[80%] px-4 mb-4 space-y-5  flex flex-col">
 
-                    <Overview overviewData={overviewData} />
+                    <Overview overviewData={overviewRevenueData} />
 
                     <div className="grid md:grid-cols-2 gap-3">
 

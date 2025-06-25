@@ -407,3 +407,16 @@ export const financeBarChartOptions = {
     width: 2
   }
 };
+
+export const financeLineChartSeries = [
+  {
+    name: "Total Revenue",
+    data: [0, 400, 380, 1000, 700, 600, 1400],
+    color: "#000",
+  },
+  {
+    name: "Total Proffit",
+    data: [0, 300, 644, 0, 800, 406, 1000],
+    color: "#099137",
+  },
+];

@@ -1,24 +1,11 @@
 import { LineChart } from '@/components/charts'
 import { Button } from '@/components/ui'
 import { formatCurrency } from '@/lib'
-import { lineChartOption } from '@/variables'
+import { lineChartOption, financeLineChartSeries } from '@/variables'
 import { Progress } from '@nextui-org/react'
 import React from 'react'
 
 const FinanceRevenue = () => {
-
-    const lineChartSeries = [
-        {
-            name: "Total Revenue",
-            data: [0, 400, 380, 1000, 700, 600, 1400],
-            color: "#000",
-        },
-        {
-            name: "Total Proffit",
-            data: [0, 300, 644, 0, 800, 406, 1000],
-            color: "#099137",
-        },
-    ];
 
     return (
         <div className="p-5 bg-white border border-gray-80 rounded-lg space-y-2">
@@ -42,7 +29,7 @@ const FinanceRevenue = () => {
 
             <div className="h-60 2xl:h-72 w-full pt-5">
                 <LineChart
-                    series={lineChartSeries}
+                    series={financeLineChartSeries}
                     options={lineChartOption}
                 />
             </div>

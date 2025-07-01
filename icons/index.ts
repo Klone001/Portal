@@ -19,16 +19,28 @@ import UserPlus from "./UserPlus";
 import DisactivateIcon from "./DisactivateIcon";
 import ReportIcon from "./ReportIcon";
 import WalletIcon from "./WalletIcon";
+import GroupUserIcon from "./GroupUserIcon";
 
 export {
     DashboardIcon,
     SearchIcon,
     ShopIcon,
-    ChartIcon, CustomerIcon, SupportIcon, SettingsIcon, LogoutIcon, NotificationIcon, RefreshIcon, UploadIcon, LockResetIcon, AddBusinessIcon, SearchInsightIcon,
+    ChartIcon, 
+    CustomerIcon, 
+    SupportIcon, 
+    SettingsIcon, 
+    LogoutIcon, 
+    NotificationIcon, 
+    RefreshIcon, 
+    UploadIcon, 
+    LockResetIcon, 
+    AddBusinessIcon, 
+    SearchInsightIcon,
     MailForwardIcon, UnplugIcon,
     CheckPlusIcon,
     UserPlus,
     DisactivateIcon,
     ReportIcon,
-    WalletIcon
+    WalletIcon,
+    GroupUserIcon
 }

@@ -1,6 +1,6 @@
 import React from 'react'
-import { LiveActivity } from './activities'
-import { Geography, Overview, TopCategories, TotalRevenue, UsersAnalysis } from '@/components/dashboard'
+import { Geography, LiveActivity, Overview, TopCategories, TotalRevenue, UsersAnalysis } from '@/components/dashboard'
+import { activityData, overviewSalesData } from '@/data'
 
 const DashboardView = () => {
 
@@ -11,7 +11,7 @@ const DashboardView = () => {
 
         <div className="w-full lg:w-[70%] 2xl:w-[80%] px-4 mb-4 space-y-5  flex flex-col">
 
-          <Overview />
+          <Overview overviewData={overviewSalesData} />
 
           <div className="grid md:grid-cols-2 gap-3">
 
@@ -29,7 +29,7 @@ const DashboardView = () => {
 
         <div className="w-full lg:w-[30%] 2xl:w-[20%] pr-4 pl-4 lg:pl-0 space-y-5  flex flex-col">
 
-          <LiveActivity />
+          <LiveActivity title='Live activities' data={activityData} />
 
         </div>
 

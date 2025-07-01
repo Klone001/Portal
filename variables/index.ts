@@ -1,4 +1,5 @@
-import { lineChartSeries, lineChartOption, barCharSeries, barChartOptions, topCategorySeries, topCategoryOptions } from "./charts";
+import { lineChartSeries, lineChartOption, barCharSeries, barChartOptions, topCategorySeries, topCategoryOptions, 
+financeBarChartOptions, financeLineChartSeries } from "./charts";
 
 export {
     lineChartSeries,
@@ -6,5 +7,7 @@ export {
     barCharSeries,
     barChartOptions,
     topCategorySeries,
-    topCategoryOptions
+    topCategoryOptions,
+    financeBarChartOptions,
+    financeLineChartSeries
 }

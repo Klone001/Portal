@@ -3,7 +3,7 @@ import { Button } from '@/components/ui'
 import Image from 'next/image'
 import React from 'react'
 
-const SuccessReg = ({ setOpen }: { setOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {
+const SuccessReg = ({ setOpen, onNextStep }: { setOpen: React.Dispatch<React.SetStateAction<boolean>>; onNextStep: () => void }) => {
     return (
         <div className='flex flex-col justify-center relative h-[50vh] sm:h-[70vh] 2xl:h-[50vh]'>
 
@@ -20,7 +20,7 @@ const SuccessReg = ({ setOpen }: { setOpen: React.Dispatch<React.SetStateAction<
 
                     <Button onPress={() => setOpen(false)}>Return to Home</Button>
 
-                    <Button  className='bg-[#F3F5F5] text-off-black'>Set up account</Button>
+                    <Button onPress={() => onNextStep()} className='bg-[#F3F5F5] text-off-black'>Set up account</Button>
 
                 </div>
 

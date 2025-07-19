@@ -1,21 +1,26 @@
 import { CustomInput, CustomPassword, CustomPhoneInput } from '@/components/FormElements'
 import { Button } from '@/components/ui'
+import { vendorRegisteration } from '@/services'
 import type { AuthType } from '@/types'
+import { getErrorMessage } from '@/utils'
+import { RegisterSchema } from '@/utils/schema'
 import { Form, Formik } from 'formik'
 import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 
 const VendorInfo: React.FC<{
     email?: string;
     onNextStep: () => void;
 }> = ({ email, onNextStep }) => {
 
-    const initialValues: Omit<AuthType, 'channel' | 'deviceImei'> = {
+    const initialValues: Omit<AuthType, | 'deviceImei'> = {
         email: email || '',
         firstName: '',
         lastName: '',
         phone: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        channel: 2
     };
 
     const [loading, setLoading] = useState(false)
@@ -24,14 +29,27 @@ const VendorInfo: React.FC<{
     return (
         <Formik
             initialValues={initialValues}
+            validationSchema={RegisterSchema}
             onSubmit={async (values) => {
 
                 setLoading(true)
 
-                setTimeout(() => {
-                    setLoading(false)
+                try {
+
+                    const payload = {
+                        ...values,
+                        phoneCountryCode,
+                    };
+                    
+                    const response = await vendorRegisteration(payload);
+                    toast.success(response.result?.message);
                     onNextStep()
-                }, 300);
+
+                } catch (error) {
+                    toast.error(getErrorMessage(error))
+                } finally {
+                    setLoading(false)
+                }
 
             }}>
             {() => (

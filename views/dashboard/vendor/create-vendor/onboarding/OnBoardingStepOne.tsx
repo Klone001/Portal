@@ -1,30 +1,47 @@
 import { FileUpload } from '@/components';
 import { CustomInput } from '@/components/FormElements';
 import { Button } from '@/components/ui';
+import { PROFILE_UPDATE_ACTIONS } from '@/data';
+import { onboardingStepOneSchema } from '@/utils/schema';
 import { Form, Formik } from 'formik';
 import React, { useState } from 'react'
 
-const OnBoardingStepOne = ({ onNextStep }: { onNextStep: () => void; }) => {
+const OnBoardingStepOne = ({
+    formData,
+    updateFormData,
+    handleSubmit,
+}: {
+    formData: Record<string, any>;
+    updateFormData: (data: Record<string, any>) => void;
+    handleSubmit: (data: Record<string, any>) => Promise<void>;
+}) => {
 
     const [loading, setLoading] = useState(false)
 
     const initialValues = {
-        businessName: '',
-        regNumber: '',
-        File: null,
+        BusinessName: formData?.BusinessName || '',
+        RegistrationNumber: formData?.RegistrationNumber || '',
+        BusinessCertificate: null,
     };
 
     return (
         <Formik
             initialValues={initialValues}
+            validationSchema={onboardingStepOneSchema}
             onSubmit={async (values) => {
 
-                setLoading(true)
+                setLoading(true);
+                console.log('Form values:', values);
 
-                setTimeout(() => {
-                    setLoading(false)
-                    onNextStep()
-                }, 300);
+                const updatedValues = {
+                    ...values,
+                    uploadAction: PROFILE_UPDATE_ACTIONS.BUSINESS_DETAILS,
+                };
+
+                updateFormData(updatedValues);
+
+                await handleSubmit(updatedValues);
+                setLoading(false);
 
             }}>
             {({ touched, errors }) => (
@@ -34,14 +51,14 @@ const OnBoardingStepOne = ({ onNextStep }: { onNextStep: () => void; }) => {
 
                         <CustomInput
                             label="Business name"
-                            name="businessName"
+                            name="BusinessName"
                             type="text"
                             placeholder="Enter your business name"
                         />
 
                         <CustomInput
                             label="Registration number"
-                            name="regNumber"
+                            name="RegistrationNumber"
                             type="text"
                             placeholder="0000000"
                         />
@@ -50,16 +67,16 @@ const OnBoardingStepOne = ({ onNextStep }: { onNextStep: () => void; }) => {
 
                             <label className="form-label text-xs mb-1">Business certificate (Optional)</label>
 
-                            <FileUpload name="File"
+                            <FileUpload name="BusinessCertificate"
                                 title=""
                                 label="Drag and drop your certificate"
                                 multiple={false}
                                 accept="image/*"
-                                error={touched.File && !!errors.File}
+                                error={touched.BusinessCertificate && !!errors.BusinessCertificate}
                             />
 
-                            {touched.File && errors.File && (
-                                <div className="text-red-600 text-xs font-light mt-0 pt-1">{errors.File}</div>
+                            {touched.BusinessCertificate && errors.BusinessCertificate && (
+                                <div className="text-red-600 text-xs font-light mt-0 pt-1">{errors.BusinessCertificate}</div>
                             )}
 
                         </div>

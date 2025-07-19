@@ -159,7 +159,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
                             )}
                         </div>
 
-                        <p className="text-xs text-gray-400">{label}</p>
+                        <p className="text-xs text-gray-600">{label}</p>
 
                     </div>
 

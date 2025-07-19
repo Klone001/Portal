@@ -1,22 +1,33 @@
 import { AuthTitle, SelectionCard } from '@/components';
 import { Button } from '@/components/ui';
-import { vendorCount } from '@/data';
+import { PROFILE_UPDATE_ACTIONS, vendorCount } from '@/data';
 import React, { useState } from 'react'
 
 
-const OnBoardingStepThree = ({ onNextStep }: { onNextStep: () => void; }) => {
+const OnBoardingStepThree = ({
+    updateFormData,
+    handleSubmit,
+}: {
+    updateFormData: (data: Record<string, any>) => void;
+    handleSubmit: (data: Record<string, any>) => Promise<void>;
+}) => {
 
     const [loading, setLoading] = useState(false)
 
     const [selected, setSelected] = useState<string | null>(null);
 
-    const handleSubmit = () => {
+    const handleSubmitPayload = async () => {
         setLoading(true)
 
-        setTimeout(() => {
-            setLoading(false)
-            onNextStep()
-        }, 300);
+        const updatedValues = {
+            size: selected || [],
+            uploadAction: PROFILE_UPDATE_ACTIONS.TEAM_SIZE,
+        };
+
+        updateFormData(updatedValues);
+
+        await handleSubmit(updatedValues);
+        setLoading(false);
     }
 
     return (
@@ -34,15 +45,15 @@ const OnBoardingStepThree = ({ onNextStep }: { onNextStep: () => void; }) => {
                         key={index}
                         label={item.label}
                         icon={item?.icon}
-                        selected={selected === item.label}
-                        onSelect={() => setSelected(item.label)}
+                        selected={selected === item.value}
+                        onSelect={() => setSelected(item.value)}
                     />
                 ))}
 
             </div>
 
             <div className="flex justify-center pb-5">
-                <Button onPress={handleSubmit} isDisabled={!selected} type="submit" className="py-6 w-full max-w-md" loading={loading}>
+                <Button onPress={handleSubmitPayload} isDisabled={!selected} type="submit" className="py-6 w-full max-w-md" loading={loading}>
                     Continue
                 </Button>
             </div>

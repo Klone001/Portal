@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { MagnifyingGlassIcon, MapPinIcon } from '@heroicons/react/24/outline'
+import { MapPinIcon } from '@heroicons/react/24/outline'
 import { Button } from '@nextui-org/react'
-import { geocodeAddress } from '@/utils';
-import toast from 'react-hot-toast';
+import { geoDecodeLocation } from '@/utils';
 
 declare global {
     interface Window {
@@ -69,7 +68,7 @@ const LocationInput = ({ setCoordinates, location }: { setCoordinates: (value: A
 
     const handleSelectPrediction = async (prediction: string) => {
         setAddress(prediction)
-        const { lat, lng } = await geocodeAddress(prediction)
+        const { lat, lng } = await geoDecodeLocation({ address: prediction });
         setCoordinates({ latitude: lat, longitude: lng });
         setPredictions([])
     }

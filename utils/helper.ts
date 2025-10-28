@@ -1,21 +1,7 @@
 'use client'
 
+import exifr from 'exifr';
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
-
-export const geocodeAddress = (address: string): Promise<{ lat: number, lng: number }> => {
-    return new Promise((resolve, reject) => {
-        const geocoder = new window.google.maps.Geocoder()
-
-        geocoder.geocode({ address }, (results: any[], status: string) => {
-            if (status === 'OK' && results[0]) {
-                const { lat, lng } = results[0].geometry.location
-                resolve({ lat: lat(), lng: lng() })
-            } else {
-                reject(`Geocode failed: ${status}`)
-            }
-        })
-    })
-}
 
 export function useQueryParams() {
 
@@ -54,3 +40,62 @@ export function useQueryParams() {
         clearQueryParams,
     };
 }
+
+interface ImageMetadata {
+    latitude?: number;
+    longitude?: number;
+}
+
+export const getImageCoordinates = async (
+    file: File | Blob
+): Promise<{ lat: number; lon: number } | null> => {
+    try {
+
+        const metadata: ImageMetadata = await exifr.parse(file);
+
+        if (metadata?.latitude && metadata?.longitude) {
+            return {
+                lat: metadata.latitude,
+                lon: metadata.longitude,
+            };
+        }
+
+        return null;
+    } catch (error) {
+        console.error('Error extracting image metadata:', error);
+        return null;
+    }
+};
+
+export const buildFormData = (
+    values: Record<string, any>,
+    extras: Record<string, any> = {},
+    fileKeys: string[] = [],
+) => {
+    const formData = new FormData();
+
+    Object.entries(values).forEach(([key, value]) => {
+        if (
+            value !== undefined &&
+            value !== '' &&
+            !fileKeys.includes(key)
+        ) {
+            formData.append(key, value);
+        }
+    });
+
+    Object.entries(extras).forEach(([key, value]) => {
+        if (value !== undefined && value !== '') {
+            formData.append(key, value.toString());
+        }
+    });
+
+    fileKeys.forEach((key) => {
+        const file = values[key];
+        if (file instanceof File) {
+            formData.append(key, file);
+        }
+    });
+
+    return formData;
+};

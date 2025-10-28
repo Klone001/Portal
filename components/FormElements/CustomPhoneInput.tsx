@@ -2,6 +2,7 @@ import React from 'react';
 import { useField, FieldHookConfig } from 'formik';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
+import { parsePhoneNumber } from 'libphonenumber-js'; 
 
 interface CustomPhoneInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label: string;
@@ -10,7 +11,7 @@ interface CustomPhoneInputProps extends React.InputHTMLAttributes<HTMLInputEleme
     onDialingCodeChange?: (code: string) => void;
 }
 
-const CustomPhoneInput: React.FC<CustomPhoneInputProps> = ({ label, className, disabled, ...props }) => {
+const CustomPhoneInput: React.FC<CustomPhoneInputProps> = ({ label, className, disabled, onDialingCodeChange, ...props }) => {
 
     const [field, meta, helpers] = useField(props as FieldHookConfig<string>);
 
@@ -19,6 +20,18 @@ const CustomPhoneInput: React.FC<CustomPhoneInputProps> = ({ label, className, d
     const handlePhoneChange = (value: string | undefined) => {
         helpers.setValue(value || '');
         helpers.setTouched(true);
+
+        if (value) {
+            try {
+                const phoneNumber = parsePhoneNumber(value); 
+                if (phoneNumber) {
+                    const dialingCode = `+${phoneNumber.countryCallingCode}`; 
+                    onDialingCodeChange?.(dialingCode);
+                }
+            } catch (error) {
+                console.error("Invalid phone number format");
+            }
+        }
     };
 
     return (

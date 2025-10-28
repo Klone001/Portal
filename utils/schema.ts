@@ -70,3 +70,54 @@ export const EmailSchema = Yup.object({
     .email("Email address is invalid")
     .required("Email address is required"),
 });
+
+export const RegisterSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required"),
+  firstName: Yup.string().required("First name is required"),
+  lastName: Yup.string().required("Last name is required"),
+  phone: Yup.string().required("Phone number is required"),
+  password: Yup.string()
+    .required("Password is required")
+    .min(6, "Password must be at least 6 characters long")
+    .matches(/[a-z]/, "Password must contain at least one lowercase letter")
+    .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
+    .matches(/\d/, "Password must contain at least one number")
+    .matches(
+      /[@$!%*?&#]/,
+      "Password must contain at least one special character"
+    ),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref("password")], "Passwords must match")
+    .required("Confirm password is required"),
+});
+
+export const onboardingStepOneSchema = Yup.object().shape({
+  BusinessName: Yup.string()
+    .required('Business name is required')
+    .min(2, 'Too short')
+    .max(100, 'Too long'),
+
+  RegistrationNumber: Yup.string()
+    .matches(/^[0-9]+$/, 'Must be numeric')
+    .min(6, 'Too short')
+    .nullable(),
+
+  BusinessCertificate: Yup.mixed<File>()
+    .nullable()
+    .test(
+      'fileFormat',
+      'Only image files are allowed',
+      (value) =>
+        !value || (value instanceof File && ['image/jpeg', 'image/png', 'image/jpg'].includes(value.type))
+    ),
+
+  // BusinessStoreFrontImage: Yup.mixed<File>()
+  //   .required('Store front image is required')
+  //   .test(
+  //     'fileFormat',
+  //     'Only image files are allowed',
+  //     (value) => value instanceof File && ['image/jpeg', 'image/png', 'image/jpg'].includes(value.type)
+  //   ),
+});

@@ -34,8 +34,17 @@ export const serviceCategoryData = [
 ];
 
 export const vendorCount = [
-    { label: 'Just me', icon: <UserIcon className='size-6' /> },
-    { label: '2-5 people', icon: <UsersIcon className='size-6' />},
-    { label: '6-10 people', icon: <UsersIcon className='size-6' />},
-    { label: '11+ people', icon: <UsersIcon className='size-6' />}
+    { label: 'Just me', value: 'Just me', icon: <UserIcon className="size-6" /> },
+    { label: '2-5 people', value: '2-5', icon: <UsersIcon className="size-6" /> },
+    { label: '6-10 people', value: '6-10', icon: <UsersIcon className="size-6" /> },
+    { label: '11+ people', value: '11+', icon: <UsersIcon className="size-6" /> },
 ];
+
+export const PROFILE_UPDATE_ACTIONS = {
+    BUSINESS_DETAILS: 'BusinessDetails',
+    BUSINESS_CATEGORIES: 'BusinessCategories',
+    TEAM_SIZE: 'TeamSize',
+    BUSINESS_LOCATION: 'BusinessLocation',
+    BUSINESS_PIN: 'BusinessPin',
+    BUSINESS_IMAGES_UPLOAD: 'BusinessImagesUpload',
+} as const;

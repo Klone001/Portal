@@ -6,6 +6,7 @@ import FileUpload from './FileUpload'
 import ImageUploader from './ImageUploader'
 import TrendIndicator from './TrendIndicator'
 import AuthTitle from './AuthTitle'
+import ResendCount from './ResendCount'
 import SelectionCard from './SelectionCard'
 import DateSelector from './DateSelector'
 
@@ -18,6 +19,7 @@ export {
     ImageUploader,
     TrendIndicator,
     AuthTitle,
+    ResendCount,
     SelectionCard,
     DateSelector
 }

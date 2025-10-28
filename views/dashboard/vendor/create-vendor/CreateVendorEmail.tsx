@@ -5,6 +5,9 @@ import { EmailSchema } from '@/utils/schema';
 import { Form, Formik } from 'formik';
 import React, { useState } from 'react'
 import CreateVendorAccount from './CreateVendorAccount';
+import toast from 'react-hot-toast';
+import { getErrorMessage } from '@/utils';
+import { checkEmailAvailability } from '@/services';
 
 const CreateVendorEmail = ({ open, setOpen }: { open: boolean; setOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {
 
@@ -39,15 +42,28 @@ const CreateVendorEmail = ({ open, setOpen }: { open: boolean; setOpen: React.Di
                     <Formik
                         initialValues={initialValues}
                         validationSchema={EmailSchema}
-                        onSubmit={(values) => {
+                        onSubmit={ async (values) => {
+
                             setLoading(true)
 
-                            setTimeout(() => {
+                            try {
+
+                                const response = await checkEmailAvailability({ email: values.email || '' })
+                                const result = response?.result;
+
+                                if (result?.doesEmailExist) {
+                                    toast.error('Email already exist')
+                                } else {
+                                    setOpen(false)
+                                    setOpenAccount(true)
+                                    setEmail(values.email || '')
+                                }
+
+                            } catch (error) {
+                                toast.error(getErrorMessage(error))
+                            } finally {
                                 setLoading(false)
-                                setOpen(false)
-                                setOpenAccount(true)
-                                setEmail(values.email || '')
-                            }, 500);
+                            }
 
                         }}>
                         {() => (

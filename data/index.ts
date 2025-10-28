@@ -3,7 +3,7 @@ import vendors from "./vendor";
 import transactions from "./transactions";
 import { activityData, financeactivityData } from "./activities";
 import { weekDays, months, dayMap } from "./date";
-import { serviceCategoryData, vendorCount } from "./categories";
+import { serviceCategoryData, vendorCount, PROFILE_UPDATE_ACTIONS } from "./categories";
 import { financeTrxData, overviewSalesData, overviewRevenueData } from "./dashboard";
 
 export {
@@ -16,6 +16,7 @@ export {
     dayMap,
     serviceCategoryData,
     vendorCount,
+    PROFILE_UPDATE_ACTIONS,
     financeactivityData,
     financeTrxData,
     overviewSalesData,
